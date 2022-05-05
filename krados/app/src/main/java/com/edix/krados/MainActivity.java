@@ -1,33 +1,23 @@
 package com.edix.krados;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.edix.krados.adapter.ProductAdapter;
 import com.edix.krados.entity.Product;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.edix.krados.databinding.ActivityMainBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView listProductContainer;
     private RequestQueue queue;
     private List<Product> productList = new ArrayList<>();
+    private ProductAdapter pAdapter;
 
 
 
@@ -82,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
                         p.setuPrice(Double.parseDouble(jresponse.getString("uPrice")));
                         p.setCategory(Integer.parseInt(jresponse.getJSONObject("category").getString("id")));
                         productList.add(p);
-                        //System.out.println(p.toString());
                     }
-                    System.out.println(productList);
+                    updateUI();
+
                 }catch(JSONException e){
                     e.printStackTrace();
                 }
@@ -94,14 +85,33 @@ public class MainActivity extends AppCompatActivity {
         });
         queue.add(request);
     }
+    
+    private Product getDataById(long id){
+        for (Product p: productList) {
+            if(p.getId().equals(id)){
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private Product getDataByName(String name){
+        for (Product p: productList) {
+            if(p.getName().equals(name)){
+                return p;
+            }
+        }
+        return null;
+    }
 
     private void updateUI(){
         if(productList.isEmpty()){
             listProductContainer.setAdapter(null);
         } else {
+            String names[] = getListNames();
             //ProductListAdapter adapter = new ProductListAdapter(this, R.layout.product_list_item, productList);
-            ArrayAdapter<String> myAdapter = new ArrayAdapter<>(this, R.layout.product_list_item, R.id.product_name_text, getListNames());
-            listProductContainer.setAdapter(myAdapter);
+            pAdapter = new ProductAdapter(this, productList);
+            listProductContainer.setAdapter(pAdapter);
 
         }
     }
@@ -117,5 +127,19 @@ public class MainActivity extends AppCompatActivity {
             }
             return names;
         }
+    }
+
+    public void viewProduct(View view){
+        View parent = (View) view.getParent();
+        TextView textNameProduct = parent.findViewById(R.id.product_name_text);
+        Product p = getDataByName(textNameProduct.getText().toString());
+
+        Intent intent = new Intent(this, ProductActivity.class);
+        intent.putExtra("id",p.getId());
+        intent.putExtra("name",p.getName());
+        intent.putExtra("price",p.getuPrice());
+        intent.putExtra("info",p.getInfo());
+
+        startActivity(intent);
     }
 }
