@@ -10,7 +10,7 @@
     <FrameLayout
         android:id="@+id/current_product_image_layout"
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="match_parent">
 
         <Button
             android:id="@+id/imageButton"
@@ -29,139 +29,147 @@
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="515dp"
             android:background="@color/grey_l"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
-    </FrameLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/current_product_image_layout"
-        android:layout_alignParentEnd="true"
-        android:orientation="vertical"
-        android:padding="25dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp">
-
-            <TextView
-                android:id="@+id/current_product_name_text"
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="50dp"
-                android:text="Nombre de producto"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/text_title_Price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="1dp"
-                android:text="Precio"
-                android:textColor="@color/grey_l"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/current_product_price_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_title_Price"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="-3dp"
-                android:layout_marginEnd="3dp"
-                android:text="1000.00 €"
-                android:textColor="@color/orange"
-                android:textSize="24dp" />
+            android:layout_height="350dp"
+            android:layout_gravity="bottom"
+            android:background="@color/grey_d">
 
             <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="25dp">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp">
+
+                    <TextView
+                        android:id="@+id/current_product_name_text"
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginRight="50dp"
+                        android:text="Nombre de producto"
+                        android:textColor="@color/white"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/text_title_Price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:text="Precio"
+                        android:textColor="@color/grey_l"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/current_product_price_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_title_Price"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="-3dp"
+                        android:layout_marginEnd="3dp"
+                        android:text="1000.00 €"
+                        android:textColor="@color/orange"
+                        android:textSize="24dp" />
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="0dp"
+                        android:layout_marginBottom="0dp"
+                        android:orientation="horizontal">
+
+
+                        <Button
+                            android:id="@+id/current_product_button_less"
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="0dp"
+                            android:backgroundTint="@color/grey_l"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="hola"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="10dp" />
+
+                        <EditText
+                            android:id="@+id/current_product_editTextNumber"
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:ems="10"
+                            android:inputType="number"
+                            android:text="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="10dp" />
+
+                        <Button
+                            android:id="@+id/current_product_button_add"
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="0dp"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="hola"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="10dp" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Descripción"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/current_product_info_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="120dp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus odio ut lectus hendrerit luctus. Nulla et ex ultricies, venenatis felis efficitur, pretium felis. Sed justo dolor, blandit vel commodo sed, tempor rutrum est. Nullam placerat sollicitudin nisl, ac pulvinar nisi sodales id. Duis libero quam, suscipit rhoncus dapibus eleifend, pellentesque nec dolor. Mauris sodales pretium bibendum. Vestibulum vestibulum ultricies nisi vitae sollicitudin. Cras eleifend arcu neque, at pulvinar sem efficitur vel. Sed at fermentum erat. Fusce laoreet metus in mi auctor ornare. Aenean eu risus elit. Nam eget vestibulum leo, at ultricies felis. Proin tincidunt justo quis elit accumsan, et bibendum diam vestibulum. Integer sit amet facilisis ligula, eget posuere leo. Fusce ac urna tempus, elementum enim vel, tempus lorem. Etiam volutpat porta purus, et consectetur lacus eleifend at."
+                    android:textColor="@color/white"
+                    android:textSize="14dp" />
 
                 <Button
-                    android:id="@+id/current_product_button_less"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="0dp"
-                    android:backgroundTint="@color/grey_l"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="hola"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="10dp" />
-
-                <EditText
-                    android:id="@+id/current_product_editTextNumber"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:text="1"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="10dp" />
-
-                <Button
-                    android:id="@+id/current_product_button_add"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="0dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="hola"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="10dp" />
-
-
+                    android:id="@+id/current_product_button_add_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@drawable/add_icon"
+                    android:paddingLeft="25dp"
+                    android:text="Añadir al carrito"
+                    android:textAlignment="center" />
             </LinearLayout>
-
         </RelativeLayout>
+    </FrameLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Descripción"
-            android:textColor="@color/white"
-            android:textSize="18dp" />
 
-        <TextView
-            android:id="@+id/current_product_info_text"
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus odio ut lectus hendrerit luctus. Nulla et ex ultricies, venenatis felis efficitur, pretium felis. Sed justo dolor, blandit vel commodo sed, tempor rutrum est. Nullam placerat sollicitudin nisl, ac pulvinar nisi sodales id. Duis libero quam, suscipit rhoncus dapibus eleifend, pellentesque nec dolor. Mauris sodales pretium bibendum. Vestibulum vestibulum ultricies nisi vitae sollicitudin. Cras eleifend arcu neque, at pulvinar sem efficitur vel. Sed at fermentum erat. Fusce laoreet metus in mi auctor ornare. Aenean eu risus elit. Nam eget vestibulum leo, at ultricies felis. Proin tincidunt justo quis elit accumsan, et bibendum diam vestibulum. Integer sit amet facilisis ligula, eget posuere leo. Fusce ac urna tempus, elementum enim vel, tempus lorem. Etiam volutpat porta purus, et consectetur lacus eleifend at."
-            android:textColor="@color/white"
-            android:textSize="14dp" />
 
-        <Button
-            android:id="@+id/current_product_button_add_chart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:drawableLeft="@drawable/add_icon"
-            android:paddingLeft="25dp"
-            android:text="Añadir al carrito"
-            android:textAlignment="center" />
-    </LinearLayout>
 
 
 </RelativeLayout>
