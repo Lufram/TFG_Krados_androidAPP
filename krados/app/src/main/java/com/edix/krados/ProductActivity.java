@@ -45,7 +45,7 @@ public class ProductActivity extends AppCompatActivity {
 
     private void updateUI(){
         name.setText(currentProduct.getName());
-        price.setText(String.valueOf(currentProduct.getuPrice()));
+        price.setText(String.valueOf(currentProduct.getuPrice())+ " €");
         info.setText(currentProduct.getInfo());
     }
 }

@@ -39,7 +39,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         // Setup.
         name.setText(product.getName());
-        price.setText(String.valueOf(product.getuPrice()));
+        price.setText(String.valueOf(product.getuPrice())+ " €");
 
         return convertView;
     }

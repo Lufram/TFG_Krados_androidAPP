@@ -1,12 +1,20 @@
 package com.edix.krados;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -15,6 +23,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.ProductAdapter;
 import com.edix.krados.entity.Product;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,9 +51,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final ActionBar actionBar = getSupportActionBar();
-
+        findViewById(R.id.topContainerAppBar).bringToFront();
+        findViewById(R.id.bottomNavigationView).setBackground(null);
+        FloatingActionButton boton = findViewById(R.id.fab);
+        boton.setColorFilter(Color.WHITE);
         queue = Volley.newRequestQueue(this);
         listProductContainer = (ListView) findViewById(R.id.product_container);
         getDataVolley();
