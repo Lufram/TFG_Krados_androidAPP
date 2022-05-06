@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
@@ -8,17 +8,19 @@
     tools:ignore="MissingClass">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topContainerAppBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Krados"
+            android:background="@color/grey"
+            android:backgroundTint="@color/grey"
             app:menu="@menu/toolbar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            />
+            app:title="Krados" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -29,9 +31,10 @@
         android:background="@color/grey" />
 
     <LinearLayout
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_margin="20dp"
         android:layout_centerHorizontal="true"
         android:paddingTop="?attr/actionBarSize"
         tools:layout_editor_absoluteY="56dp">
@@ -40,7 +43,7 @@
             android:id="@+id/home_titlte"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
             android:text="Los mejores componentes del planeta"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -121,16 +124,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="100dp"/>
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="85dp"/>
 
     </LinearLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/grey_l"
-        app:menu="@menu/botton_navbar" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/grey_l"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="10dp"
+        app:fabCradleVerticalOffset="10dp"
+        tools:ignore="BottomAppBar">
 
-</RelativeLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="16dp"
+            app:menu="@menu/botton_navbar" />
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        style="null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/orange"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_baseline_shopping_cart_24"
+        android:tint="@color/white"
+        app:layout_anchor="@id/bottomAppBar" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
