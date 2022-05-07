@@ -105,10 +105,11 @@
                             android:backgroundTint="@color/grey_l"
                             android:insetTop="0dp"
                             android:insetBottom="0dp"
-                            android:text="hola"
+                            android:text="-"
                             android:textAlignment="center"
                             android:textColor="@color/white"
-                            android:textSize="10dp" />
+                            android:textSize="10dp"
+                            android:onClick="subtract"/>
 
                         <EditText
                             android:id="@+id/current_product_editTextNumber"
@@ -120,7 +121,8 @@
                             android:text="1"
                             android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:textSize="10dp" />
+                            android:textSize="10dp"
+                            android:enabled="false"/>
 
                         <Button
                             android:id="@+id/current_product_button_add"
@@ -129,10 +131,11 @@
                             android:layout_margin="0dp"
                             android:insetTop="0dp"
                             android:insetBottom="0dp"
-                            android:text="hola"
+                            android:text="+"
                             android:textAlignment="center"
                             android:textColor="@color/white"
-                            android:textSize="10dp" />
+                            android:textSize="10dp"
+                            android:onClick="add"/>
 
 
                     </LinearLayout>

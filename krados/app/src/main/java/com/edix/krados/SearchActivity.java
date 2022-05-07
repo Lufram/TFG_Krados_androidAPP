@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.ProductAdapter;
 import com.edix.krados.entity.Product;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -34,6 +36,7 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
 
     private ListView listProductContainer;
+    private BottomAppBar bottomAppBar;
 
     List<Product> productList = new ArrayList<>();
     private RequestQueue queue;
@@ -43,6 +46,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        bottomAppBar = findViewById(R.id.bottomAppBar);
         findViewById(R.id.bottomNavigationView).setBackground(null);
         FloatingActionButton boton = findViewById(R.id.fab);
         boton.setColorFilter(Color.WHITE);
@@ -114,4 +118,11 @@ public class SearchActivity extends AppCompatActivity {
 
         }
     }
+
+    public void goBack(MenuItem menu){
+        System.out.println("LLEGA AQUI");
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }
