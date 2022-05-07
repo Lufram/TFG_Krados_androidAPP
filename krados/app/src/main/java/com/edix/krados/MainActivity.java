@@ -152,7 +152,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goBack(MenuItem menu){
 
+    }
 
     public void goSearch(MenuItem menu){
         Intent intent = new Intent(this, SearchActivity.class);

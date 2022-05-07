@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.edix.krados.adapter.CurrentProductAdapter;
 import com.edix.krados.adapter.ProductAdapter;
 import com.edix.krados.entity.Product;
+import com.edix.krados.utilities.InputFilterMinMax;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,7 @@ public class ProductActivity extends AppCompatActivity {
     private TextView name;
     private TextView price;
     private TextView info;
+    private EditText editTextNumOfProd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,8 @@ public class ProductActivity extends AppCompatActivity {
         name = (TextView) findViewById(R.id.current_product_name_text);
         price = (TextView) findViewById(R.id.current_product_price_text);
         info = (TextView) findViewById(R.id.current_product_info_text);
+        editTextNumOfProd = findViewById(R.id.current_product_editTextNumber);
+        editTextNumOfProd.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "100")});
         updateUI();
     }
 
@@ -47,5 +54,25 @@ public class ProductActivity extends AppCompatActivity {
         name.setText(currentProduct.getName());
         price.setText(String.valueOf(currentProduct.getuPrice())+ " €");
         info.setText(currentProduct.getInfo());
+    }
+
+    public void add(View view){
+        int initialNumber = Integer.parseInt(editTextNumOfProd.getText().toString());
+        if(initialNumber == 100){
+            Toast.makeText(getApplicationContext(),"No se pueden añadir más productos",Toast.LENGTH_LONG).show();
+        }else{
+            int finalNumber = initialNumber + 1;
+            editTextNumOfProd.setText(String.valueOf(finalNumber));
+        }
+    }
+
+    public void subtract(View view){
+        int initialNumber = Integer.parseInt(editTextNumOfProd.getText().toString());
+        if(initialNumber == 1){
+            Toast.makeText(getApplicationContext(),"La cantidad mínima es 1 producto",Toast.LENGTH_LONG).show();
+        }else{
+            int finalNumber = initialNumber - 1;
+            editTextNumOfProd.setText(String.valueOf(finalNumber));
+        }
     }
 }
