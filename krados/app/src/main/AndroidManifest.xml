@@ -13,6 +13,21 @@
         android:theme="@style/Theme.Krados"
         android:usesCleartextTraffic="true">
         <activity
+<<<<<<< HEAD
+=======
+            android:name=".UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+>>>>>>> 07914f0de7d38c87f9a87119d5742d0c5dbb7aa1
             android:name=".SearchActivity"
             android:exported="false" />
         <activity
