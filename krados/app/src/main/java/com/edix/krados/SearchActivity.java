@@ -1,26 +1,18 @@
 package com.edix.krados;
 
-import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.DialogInterface;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
+
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.SearchView;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,12 +21,10 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.ProductAdapter;
 import com.edix.krados.entity.Product;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,38 +33,60 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
+
     private ListView listProductContainer;
+    private BottomAppBar bottomAppBar;
+
+    List<Product> productList = new ArrayList<>();
     private RequestQueue queue;
-    private List<Product> productList = new ArrayList<>();
     private ProductAdapter pAdapter;
 
-
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        findViewById(R.id.topContainerAppBar).bringToFront();
+        setContentView(R.layout.activity_search);
+        bottomAppBar = findViewById(R.id.bottomAppBar);
         findViewById(R.id.bottomNavigationView).setBackground(null);
         FloatingActionButton boton = findViewById(R.id.fab);
         boton.setColorFilter(Color.WHITE);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.topAppBarSearch);
+        setSupportActionBar(toolbar);
         queue = Volley.newRequestQueue(this);
-        listProductContainer = (ListView) findViewById(R.id.product_container);
-        getDataVolley();
-        updateUI();
+        listProductContainer = findViewById(R.id.product_container_search);
+
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbarsearch, menu);
+        final MenuItem searchItem = menu.findItem(R.id.app_bar_search_search_activity);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                getDataByNameVolley(s);
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String s) {
 
-    private void getDataVolley (){
-        String url = "http://10.0.2.2:8086/krados/products/";
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void getDataByNameVolley (String name){
+        String url = "http://10.0.2.2:8086/krados/products/findByName/" + name;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
             @Override
             public void onResponse(JSONArray response) {
                 try{
+                    productList.clear();
                     for(int i=0; i<response.length(); i++){
                         JSONObject jresponse = response.getJSONObject(i);
                         Product p = new Product();
@@ -96,26 +108,8 @@ public class MainActivity extends AppCompatActivity {
         });
         queue.add(request);
     }
-    
-    private Product getDataById(long id){
-        for (Product p: productList) {
-            if(p.getId().equals(id)){
-                return p;
-            }
-        }
-        return null;
-    }
 
-    private Product getDataByName(String name){
-        for (Product p: productList) {
-            if(p.getName().equals(name)){
-                return p;
-            }
-        }
-        return null;
-    }
-
-    private void updateUI(){
+        private void updateUI(){
         if(productList.isEmpty()){
             listProductContainer.setAdapter(null);
         } else {
@@ -125,39 +119,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private String[] getListNames(){
-        String[] names;
-        if(productList.isEmpty()){
-            return null;
-        }else {
-            names = new String[productList.size()];
-            for (int i=0;i<productList.size();i++) {
-                names[i] = productList.get(i).getName();
-            }
-            return names;
-        }
-    }
-
-    public void viewProduct(View view){
-        View parent = (View) view.getParent();
-        TextView textNameProduct = parent.findViewById(R.id.product_name_text);
-        Product p = getDataByName(textNameProduct.getText().toString());
-
-        Intent intent = new Intent(this, ProductActivity.class);
-        intent.putExtra("id",p.getId());
-        intent.putExtra("name",p.getName());
-        intent.putExtra("price",p.getuPrice());
-        intent.putExtra("info",p.getInfo());
-
-        startActivity(intent);
-    }
-
     public void goBack(MenuItem menu){
-
-    }
-
-    public void goSearch(MenuItem menu){
-        Intent intent = new Intent(this, SearchActivity.class);
+        System.out.println("LLEGA AQUI");
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
 }
