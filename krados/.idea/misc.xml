@@ -45,11 +45,19 @@
         <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/TFG_Krados_androidAPP-main/TFG_Krados_androidAPP-main/krados/app/src/main/res/layout/product_content.xml" value="0.5" />
         <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/TFG_Krados_androidAPP-main/TFG_Krados_androidAPP-main/krados/app/src/main/res/layout/product_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/TFG_Krados_androidAPP-main/TFG_Krados_androidAPP-main/krados/app/src/main/res/layout/product_list_item.xml" value="0.2989583333333333" />
+        <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/drawable-v24/add_icon.xml" value="0.36019736842105265" />
+        <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/drawable-v24/background_corner_radius.xml" value="0.35723684210526313" />
         <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.4348958333333333" />
         <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.4348958333333333" />
+        <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/layout/activity_chart.xml" value="0.35" />
+        <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/layout/activity_login.xml" value="0.35" />
         <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/layout/activity_main.xml" value="0.10119047619047619" />
         <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/layout/activity_product.xml" value="0.25" />
+        <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/layout/activity_register.xml" value="0.35" />
         <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/layout/activity_search.xml" value="0.14" />
+        <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/layout/activity_splash.xml" value="0.35" />
+        <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/layout/activity_user.xml" value="0.35" />
+        <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/layout/product_chart_item.xml" value="0.3470394736842105" />
         <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/layout/product_list_item.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/menu/bottom_nav_menu.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/javierbaron/Desktop/Grados/DAM2/3trimestre/TFG/kradosAndroidApp/krados/app/src/main/res/menu/botton_navbar.xml" value="0.5541666666666667" />
