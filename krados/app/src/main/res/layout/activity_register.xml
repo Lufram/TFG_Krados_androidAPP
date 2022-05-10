@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
     <!-- imagen de fondo -->
     <View
@@ -265,7 +265,7 @@
                 android:layout_marginTop="32dp"
                 android:background="@drawable/background_corner_radius"
                 android:backgroundTint="@color/orange"
-                android:onClick="login"
+                android:onClick="createAccount"
                 android:text="Crear Cuenta"
                 android:textColor="@color/white"
                 android:textSize="20sp"

@@ -2,6 +2,7 @@ package com.edix.krados;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -13,12 +14,14 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
-    private void login(View view){
-
+    public void login(View view){
+        Intent intentSplashToMain = new Intent(this,MainActivity.class);
+        startActivity(intentSplashToMain);
     }
 
-    private void createAccount(View view){
-
+    public void createAccount(View view){
+        Intent intentSplashToMain = new Intent(this,RegisterActivity.class);
+        startActivity(intentSplashToMain);
     }
 
 }

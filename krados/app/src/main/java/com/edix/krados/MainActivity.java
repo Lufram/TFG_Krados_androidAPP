@@ -152,6 +152,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goUserActivity(MenuItem menu){
+        Intent intent = new Intent(this, UserActivity.class);
+        startActivity(intent);
+    }
+
     public void goBack(MenuItem menu){
 
     }
