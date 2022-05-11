@@ -119,8 +119,12 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    public void goUserActivity(MenuItem menu){
+        Intent intent = new Intent(this, UserActivity.class);
+        startActivity(intent);
+    }
+
     public void goBack(MenuItem menu){
-        System.out.println("LLEGA AQUI");
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

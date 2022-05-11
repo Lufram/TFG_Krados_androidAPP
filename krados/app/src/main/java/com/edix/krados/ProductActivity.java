@@ -7,22 +7,17 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.edix.krados.adapter.CurrentProductAdapter;
-import com.edix.krados.adapter.ProductAdapter;
+import com.edix.krados.adapter.ChartAdapter;
 import com.edix.krados.entity.Product;
 import com.edix.krados.utilities.InputFilterMinMax;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProductActivity extends AppCompatActivity {
 
     private Product currentProduct;
-    private CurrentProductAdapter pAdapter;
+    private ChartAdapter pAdapter;
     private TextView name;
     private TextView price;
     private TextView info;
