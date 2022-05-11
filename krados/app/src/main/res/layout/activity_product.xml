@@ -105,11 +105,11 @@
                             android:backgroundTint="@color/grey_l"
                             android:insetTop="0dp"
                             android:insetBottom="0dp"
+                            android:onClick="subtract"
                             android:text="-"
                             android:textAlignment="center"
                             android:textColor="@color/white"
-                            android:textSize="10dp"
-                            android:onClick="subtract"/>
+                            android:textSize="10dp" />
 
                         <EditText
                             android:id="@+id/current_product_editTextNumber"
@@ -117,12 +117,12 @@
                             android:layout_height="match_parent"
                             android:background="@color/white"
                             android:ems="10"
+                            android:enabled="false"
                             android:inputType="number"
                             android:text="1"
                             android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:textSize="10dp"
-                            android:enabled="false"/>
+                            android:textSize="10dp" />
 
                         <Button
                             android:id="@+id/current_product_button_add"
@@ -131,11 +131,11 @@
                             android:layout_margin="0dp"
                             android:insetTop="0dp"
                             android:insetBottom="0dp"
+                            android:onClick="add"
                             android:text="+"
                             android:textAlignment="center"
                             android:textColor="@color/white"
-                            android:textSize="10dp"
-                            android:onClick="add"/>
+                            android:textSize="10dp" />
 
 
                     </LinearLayout>

@@ -49,6 +49,7 @@
             app:startIconDrawable="@drawable/ic_user">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/userBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
@@ -69,6 +70,7 @@
             app:startIconDrawable="@drawable/ic_baseline_key_24">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -86,7 +88,7 @@
             android:backgroundTint="@color/orange"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:onClick="login"
+            android:onClick="validateFields"
             android:text="Entrar"
             android:background="@drawable/background_corner_radius"
             android:textColor="@color/white"
