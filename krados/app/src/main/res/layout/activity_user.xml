@@ -11,7 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="25dp">
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="25dp"
+        android:paddingTop="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -102,6 +105,7 @@
                     android:background="@drawable/background_corner_radius"
                     android:backgroundTint="@color/grey_l"
                     android:backgroundTintMode="add"
+                    android:onClick="closeSesion"
                     android:text="CERRAR SESION"
                     android:textColor="@color/white"
                     android:textSize="16dp"
@@ -325,13 +329,13 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        style="null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/orange"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_baseline_shopping_cart_24"
         android:tint="@color/white"
+        android:onClick="goChart"
         app:layout_anchor="@id/bottomAppBar" />
 
 

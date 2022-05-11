@@ -35,4 +35,15 @@ public class UserActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void closeSesion(View view){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void goChart(View view){
+        Intent intent = new Intent(this, ChartActivity.class);
+        startActivity(intent);
+    }
 }

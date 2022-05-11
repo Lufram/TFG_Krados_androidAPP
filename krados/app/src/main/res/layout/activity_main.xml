@@ -151,13 +151,13 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        style="null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/orange"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_baseline_shopping_cart_24"
         android:tint="@color/white"
+        android:onClick="goChart"
         app:layout_anchor="@id/bottomAppBar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

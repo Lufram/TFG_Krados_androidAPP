@@ -65,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
         updateUI();
     }
 
-
-
-
     private void getDataVolley (){
         String url = "http://10.0.2.2:8086/krados/products/";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -154,6 +151,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goUserActivity(MenuItem menu){
         Intent intent = new Intent(this, UserActivity.class);
+        startActivity(intent);
+    }
+
+    public void goChart(View view){
+        Intent intent = new Intent(this, ChartActivity.class);
         startActivity(intent);
     }
 
