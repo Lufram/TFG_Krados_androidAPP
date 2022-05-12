@@ -107,9 +107,10 @@
                             android:insetBottom="0dp"
                             android:onClick="subtract"
                             android:text="-"
+                            android:padding="0dp"
                             android:textAlignment="center"
                             android:textColor="@color/white"
-                            android:textSize="10dp" />
+                            android:textSize="14dp" />
 
                         <EditText
                             android:id="@+id/current_product_editTextNumber"
@@ -132,10 +133,11 @@
                             android:insetTop="0dp"
                             android:insetBottom="0dp"
                             android:onClick="add"
+                            android:padding="0dp"
                             android:text="+"
                             android:textAlignment="center"
                             android:textColor="@color/white"
-                            android:textSize="10dp" />
+                            android:textSize="14dp" />
 
 
                     </LinearLayout>

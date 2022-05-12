@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -35,6 +36,11 @@ public class RegisterActivity extends AppCompatActivity {
         TextInputEditText stateInput = findViewById(R.id.register_input_text_state);
         TextInputEditText postalCodeInput = findViewById(R.id.register_input_text_postal_code);
 
+        TextInputLayout passwordLayout = findViewById(R.id.register_input_layout_password);
+        TextInputLayout passwordCheckLayout = findViewById(R.id.register_input_layout_password_check);
+
+        passwordLayout.setErrorEnabled(false);
+        passwordCheckLayout.setErrorEnabled(false);
 
         String email = emailInput.getText().toString();
         String pass = passwordInput.getText().toString();
@@ -44,6 +50,21 @@ public class RegisterActivity extends AppCompatActivity {
                 || lastNameInput.equals("") || addressInput.equals("") || cityInput.equals("")
                 || stateInput.equals("") || postalCodeInput.equals("")) {
             Toast.makeText(this, "Debes completar todos los campos", Toast.LENGTH_LONG).show();
+            error++;
+        }
+
+        if(pass.length() < 6){
+            passwordLayout.setErrorEnabled(true);
+            passwordLayout.setError("Debe que tener 6 caracteres como mínimo");
+            error++;
+            if(!passCheck.equals(pass)){
+                passwordCheckLayout.setErrorEnabled(true);
+                passwordCheckLayout.setError("Las contraseñas deben coincidir");
+                error++;
+            }
+        }else if(!passCheck.equals(pass)){
+            passwordCheckLayout.setErrorEnabled(true);
+            passwordCheckLayout.setError("Las contraseñas deben coincidir");
             error++;
         }
 
