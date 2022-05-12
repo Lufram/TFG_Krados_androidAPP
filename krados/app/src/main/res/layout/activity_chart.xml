@@ -51,10 +51,10 @@
 
 
         <ListView
-            android:id="@+id/product_container"
+            android:id="@+id/cart_product_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="140dp"></ListView>
+            android:layout_marginBottom="140dp"/>
     </LinearLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat

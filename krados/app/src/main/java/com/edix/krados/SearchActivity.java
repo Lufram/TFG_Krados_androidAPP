@@ -94,7 +94,6 @@ public class SearchActivity extends AppCompatActivity {
                         p.setName(jresponse.getString("name"));
                         p.setInfo(jresponse.getString("info"));
                         p.setuPrice(Double.parseDouble(jresponse.getString("uPrice")));
-                        p.setCategory(Integer.parseInt(jresponse.getJSONObject("category").getString("id")));
                         productList.add(p);
                     }
                     updateUI();

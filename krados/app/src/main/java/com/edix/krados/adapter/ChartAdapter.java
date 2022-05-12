@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.edix.krados.R;
@@ -32,15 +33,18 @@ public class ChartAdapter extends ArrayAdapter<Product> {
         // Referencias UI.
         TextView name = (TextView) convertView.findViewById(R.id.chart_product_name_text);
         TextView price = (TextView) convertView.findViewById(R.id.chart_product_price_text);
-        TextView amount = (TextView) convertView.findViewById(R.id.chart_product_editTextNumber);
+        EditText amount = (EditText) convertView.findViewById(R.id.chart_product_editTextNumber);
+        TextView subPriceView = (TextView) convertView.findViewById(R.id.chart_total_product_price_text);
 
         // Lead actual.
         Product product = getItem(position);
 
         // Setup.
         name.setText(product.getName());
-        price.setText(String.valueOf(product.getuPrice()));
-        amount.setText(product.getAmount());
+        price.setText(String.valueOf(product.getuPrice())+ " €");
+        amount.setText(String.valueOf(product.getAmount()));
+        Double subPrice = product.getuPrice() * product.getAmount();
+        subPriceView.setText(String.valueOf(subPrice)+ " €");
 
         return convertView;
     }
