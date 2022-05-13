@@ -57,9 +57,9 @@
             android:layout_marginBottom="140dp"/>
     </LinearLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:layout_marginBottom="80dp"
         android:orientation="horizontal">
@@ -67,9 +67,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_toStartOf="@+id/chart_total_product_price_text"
             android:text="Total"
-            android:layout_marginStart="210dp"
             android:textColor="@color/orange"
             android:textSize="18dp" />
 
@@ -77,13 +79,15 @@
             android:id="@+id/chart_total_product_price_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="23dp"
-            android:text="0.00€"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:text="0€"
             android:textColor="@color/grey_l"
             android:textSize="28dp" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </RelativeLayout>
 
 
     <View

@@ -167,6 +167,7 @@
                     android:layout_marginTop="15dp"
                     android:drawableLeft="@drawable/add_icon"
                     android:paddingLeft="25dp"
+                    android:onClick="addProductCart"
                     android:text="Añadir al carrito"
                     android:textAlignment="center" />
             </LinearLayout>

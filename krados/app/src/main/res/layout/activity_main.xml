@@ -86,31 +86,37 @@
                 >
 
                 <ImageButton
-                    android:src="@drawable/ic_raton_icon"
                     android:id="@+id/category1_button"
+                    style="@style/category_button"
+                    android:onClick="goCategory1"
+                    android:src="@drawable/ic_teclado_icon" />
+
+                <ImageButton
+                    android:src="@drawable/ic_raton_icon"
+                    android:onClick="goCategory2"
+                    android:id="@+id/category2_button"
                     style="@style/category_button" />
                 <ImageButton
                     android:src="@drawable/ic_cascos_icon"
-                    android:id="@+id/category2_button"
+                    android:onClick="goCategory3"
+                    android:id="@+id/category3_button"
                     style="@style/category_button"
                     />
 
                 <ImageButton
-                    android:id="@+id/category3_button"
-                    style="@style/category_button"
-                    android:src="@drawable/ic_teclado_icon" />
-
-                <ImageButton
                     android:src="@drawable/ic_pc_icon"
+                    android:onClick="goCategory4"
                     android:id="@+id/category4_button"
                     style="@style/category_button"
                     />
                 <ImageButton
                     android:src="@drawable/ic_silla_icon"
+                    android:onClick="goCategory5"
                     android:id="@+id/category5_button"
                     style="@style/category_button" />
                 <ImageButton
                     android:src="@drawable/ic_movil_icon"
+                    android:onClick="goCategory6"
                     android:id="@+id/category6_button"
                     style="@style/category_button" />
 

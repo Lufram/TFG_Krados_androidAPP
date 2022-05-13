@@ -45,10 +45,16 @@ public class RegisterActivity extends AppCompatActivity {
         String email = emailInput.getText().toString();
         String pass = passwordInput.getText().toString();
         String passCheck = checkPasswordInput.getText().toString();
+        String name = nameInput.getText().toString();
+        String lastname = lastNameInput.getText().toString();
+        String address = addressInput.getText().toString();
+        String city = cityInput.getText().toString();
+        String state = stateInput.getText().toString();
+        String postalCode = postalCodeInput.getText().toString();
 
-        if (email.equals("") || pass.equals("") || passCheck.equals("") || nameInput.equals("")
-                || lastNameInput.equals("") || addressInput.equals("") || cityInput.equals("")
-                || stateInput.equals("") || postalCodeInput.equals("")) {
+        if (email.equals("") || pass.equals("") || passCheck.equals("") || name.equals("")
+                || lastname.equals("") || address.equals("") || city.equals("")
+                || state.equals("") || postalCode.equals("")) {
             Toast.makeText(this, "Debes completar todos los campos", Toast.LENGTH_LONG).show();
             error++;
         }

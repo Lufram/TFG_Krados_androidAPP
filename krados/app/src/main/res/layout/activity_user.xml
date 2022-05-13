@@ -115,17 +115,20 @@
 
 
         <ScrollView
+            android:id="@+id/info_profile_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="18dp"
-            android:layout_marginBottom="92dp">
+            android:layout_marginBottom="40dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title_login"
                 android:layout_centerHorizontal="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="40dp">
 
 
                 <TextView
@@ -150,6 +153,8 @@
 
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/profile_input_text_email"
+                        android:enabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -178,6 +183,8 @@
 
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/profile_input_text_name"
+                        android:enabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -197,6 +204,8 @@
 
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/profile_input_text_surname"
+                        android:enabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -222,9 +231,10 @@
                     app:startIconDrawable="@drawable/ic_location">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/profile_input_text_address"
+                        android:enabled="false"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
+                        android:layout_height="wrap_content" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -240,9 +250,10 @@
                     app:boxBackgroundColor="@color/grey">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/profile_input_text_city"
+                        android:enabled="false"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
+                        android:layout_height="wrap_content"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -263,9 +274,10 @@
                         app:boxBackgroundColor="@color/grey">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/profile_input_text_state"
+                            android:enabled="false"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textPassword" />
+                            android:layout_height="wrap_content" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -281,21 +293,23 @@
                         app:boxBackgroundColor="@color/grey">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/profile_input_text_postal_code"
+                            android:enabled="false"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textPassword" />
+                            android:layout_height="wrap_content" />
 
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/button_login"
+                    android:id="@+id/button_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:background="@drawable/background_corner_radius"
                     android:backgroundTint="@color/grey_l"
                     android:text="MODIFICAR"
+                    android:onClick="modifyProfileData"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -308,6 +322,7 @@
     </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
+        app:hideOnScroll="true"
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

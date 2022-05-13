@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,9 +21,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.ProductAdapter;
 import com.edix.krados.entity.Product;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -34,28 +31,36 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity {
 
-    private ListView listProductContainer;
+    private ListView listProductContainerCategory;
     private BottomAppBar bottomAppBar;
-
     List<Product> productList = new ArrayList<>();
     private RequestQueue queue;
     private ProductAdapter pAdapter;
+    private String categoryId;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-        bottomAppBar = findViewById(R.id.bottomAppBar);
-        findViewById(R.id.bottomNavigationView).setBackground(null);
-        FloatingActionButton boton = findViewById(R.id.fab);
-        boton.setColorFilter(Color.WHITE);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.topAppBarSearch);
-        setSupportActionBar(toolbar);
-        queue = Volley.newRequestQueue(this);
-        listProductContainer = findViewById(R.id.product_container_search);
+        setContentView(R.layout.activity_category);
 
+        categoryId = getIntent().getStringExtra("categoryId");
+
+
+        listProductContainerCategory = findViewById(R.id.product_container_category);
+        bottomAppBar = findViewById(R.id.bottomAppBar);
+        FloatingActionButton boton = findViewById(R.id.fab);
+        toolbar = (Toolbar) findViewById(R.id.topAppBarSearch);
+
+
+        findViewById(R.id.bottomNavigationView).setBackground(null);
+        boton.setColorFilter(Color.WHITE);
+        setSupportActionBar(toolbar);
+
+        queue = Volley.newRequestQueue(this);
+        getCategoryByIdVolley(categoryId);
     }
 
     @Override
@@ -67,7 +72,7 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String s) {
-                getDataByNameVolley(s);
+                getProductByCategoryIdAndNameVolley(categoryId, s);
                 return false;
             }
 
@@ -80,8 +85,8 @@ public class SearchActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void getDataByNameVolley (String name){
-        String url = "http://10.0.2.2:8086/krados/products/findByName/" + name;
+    private void getCategoryByIdVolley (String id){
+        String url = "http://10.0.2.2:8086/krados/products/findByCategory/" + id;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
             @Override
@@ -109,23 +114,45 @@ public class SearchActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-        private void updateUI(){
-        if(productList.isEmpty()){
-            listProductContainer.setAdapter(null);
-        } else {
-            pAdapter = new ProductAdapter(this, productList);
-            listProductContainer.setAdapter(pAdapter);
 
-        }
+    private void getProductByCategoryIdAndNameVolley (String id, String name ) {
+        String url = String.format("http://10.0.2.2:8086/krados/products/findByCategoryAndName?categoryId=%1$s&name=%2$s", id, name);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    productList.clear();
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject jresponse = response.getJSONObject(i);
+                        Product p = new Product();
+                        p.setId(Long.parseLong(jresponse.getString("id")));
+                        p.setName(jresponse.getString("name"));
+                        p.setInfo(jresponse.getString("info"));
+                        p.setuPrice(Double.parseDouble(jresponse.getString("uPrice")));
+                        productList.add(p);
+                    }
+                    updateUI();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, error -> {
+            System.out.println(error);
+        });
+        queue.add(request);
     }
 
-    private Product getDataByName(String name){
-        for (Product p: productList) {
-            if(p.getName().equals(name)){
-                return p;
-            }
+        private void updateUI(){
+        if(productList.isEmpty()){
+            listProductContainerCategory.setAdapter(null);
+
+        } else {
+            pAdapter = new ProductAdapter(this, productList);
+            listProductContainerCategory.setAdapter(pAdapter);
+
         }
-        return null;
     }
 
     public void viewProduct(View view){
@@ -142,6 +169,15 @@ public class SearchActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private Product getDataByName(String name){
+        for (Product p: productList) {
+            if(p.getName().equals(name)){
+                return p;
+            }
+        }
+        return null;
+    }
+
     public void goUserActivity(MenuItem menu){
         Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);
@@ -156,5 +192,4 @@ public class SearchActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChartActivity.class);
         startActivity(intent);
     }
-
 }

@@ -10,9 +10,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.ChartAdapter;
 import com.edix.krados.entity.Product;
 import com.edix.krados.utilities.InputFilterMinMax;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -22,6 +32,7 @@ public class ProductActivity extends AppCompatActivity {
     private TextView price;
     private TextView info;
     private EditText editTextNumOfProd;
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +48,37 @@ public class ProductActivity extends AppCompatActivity {
         info = (TextView) findViewById(R.id.current_product_info_text);
         editTextNumOfProd = findViewById(R.id.current_product_editTextNumber);
         editTextNumOfProd.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "100")});
+        queue = Volley.newRequestQueue(this);
         updateUI();
     }
 
-    public void backAction(View view){
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
+    private void addProductCartVolley (Long cartId, Long productId, int amount, View view ){
+        String url = String.format("http://10.0.2.2:8086/krados/products/productInCart?cartId=%1$s&productId=%2$s&amount=%3$s", cartId, productId, amount);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                System.out.println("AÑADIDO");
+                goChart(view);
+            }
+
+        }, error -> {
+            System.out.println(error);
+        });
+        queue.add(request);
     }
+
+
 
     private void updateUI(){
         name.setText(currentProduct.getName());
         price.setText(String.valueOf(currentProduct.getuPrice())+ " €");
         info.setText(currentProduct.getInfo());
+    }
+
+    public void addProductCart(View view){
+        addProductCartVolley(1L, currentProduct.getId(),Integer.parseInt(editTextNumOfProd.getText().toString()), view);
+
     }
 
     public void add(View view){
@@ -69,5 +99,14 @@ public class ProductActivity extends AppCompatActivity {
             int finalNumber = initialNumber - 1;
             editTextNumOfProd.setText(String.valueOf(finalNumber));
         }
+    }
+    public void goChart(View view){
+        Intent intent = new Intent(this, ChartActivity.class);
+        startActivity(intent);
+    }
+
+    public void backAction(View view){
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 }

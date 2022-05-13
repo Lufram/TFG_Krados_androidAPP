@@ -166,4 +166,37 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }
+
+    public void goCategory1(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("categoryId","1");
+        startActivity(intent);
+    }
+
+    public void goCategory2(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("categoryId","2");
+        startActivity(intent);
+    }
+
+    public void goCategory3(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("categoryId","3");
+        startActivity(intent);
+    }
+    public void goCategory4(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("categoryId","4");
+        startActivity(intent);
+    }
+    public void goCategory5(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("categoryId","5");
+        startActivity(intent);
+    }
+    public void goCategory6(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("categoryId","6");
+        startActivity(intent);
+    }
 }
