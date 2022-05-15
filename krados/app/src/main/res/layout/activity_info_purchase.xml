@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChartActivity"
+    tools:context=".InfoPurchaseActivity"
     android:background="@color/grey"
     android:paddingLeft="25dp"
     android:paddingRight="25dp"
@@ -21,7 +21,7 @@
             android:layout_height="75dp"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/chart_back_button"
+                android:id="@+id/info_purchase_back_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="20dp"
@@ -35,10 +35,10 @@
                 app:srcCompat="@drawable/back_icon" />
 
             <TextView
-                android:layout_width="190dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Mi Carrito"
+                android:text="Información del pedido"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
         </LinearLayout>
@@ -51,7 +51,7 @@
 
 
         <ListView
-            android:id="@+id/cart_product_container"
+            android:id="@+id/info_purchase_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="140dp"/>
@@ -70,13 +70,13 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
-            android:layout_toStartOf="@+id/chart_total_product_price_text"
+            android:layout_toStartOf="@+id/info_purchase_total_product_price_text"
             android:text="Total"
             android:textColor="@color/orange"
             android:textSize="18dp" />
 
         <TextView
-            android:id="@+id/chart_total_product_price_text"
+            android:id="@+id/info_purchase_total_product_price_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -98,15 +98,15 @@
         android:layout_marginBottom="70dp"/>
 
     <Button
-        android:id="@+id/cart_product_button"
+        android:id="@+id/purchase_product_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:paddingLeft="25dp"
         android:layout_gravity="bottom"
-        android:onClick="makeAnOrder"
-        android:text="Realizar pedido"
+        android:text="VOLVER A PEDIR"
         android:textAlignment="center"
         tools:ignore="RtlCompat" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

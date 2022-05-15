@@ -11,6 +11,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private TextInputEditText user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,8 +20,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        Intent intentSplashToLogin = new Intent(this, MainActivity.class);
-        startActivity(intentSplashToLogin);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("username",user.getText().toString());
+        startActivity(intent);
         finish();
     }
 
@@ -31,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     public void validateFields(View view) {
         int error = 0;
 
-        TextInputEditText user = findViewById(R.id.userBox);
+        user = findViewById(R.id.userBox);
         TextInputEditText password = findViewById(R.id.passBox);
 
         String name = user.getText().toString();

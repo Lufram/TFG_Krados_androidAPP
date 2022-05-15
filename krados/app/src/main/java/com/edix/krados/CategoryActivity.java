@@ -48,7 +48,6 @@ public class CategoryActivity extends AppCompatActivity {
 
         categoryId = getIntent().getStringExtra("categoryId");
 
-
         listProductContainerCategory = findViewById(R.id.product_container_category);
         bottomAppBar = findViewById(R.id.bottomAppBar);
         FloatingActionButton boton = findViewById(R.id.fab);

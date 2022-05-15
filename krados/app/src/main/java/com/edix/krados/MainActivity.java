@@ -29,6 +29,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.ProductAdapter;
 import com.edix.krados.entity.Product;
+import com.edix.krados.entity.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue queue;
     private List<Product> productList = new ArrayList<>();
     private ProductAdapter pAdapter;
+    private User currentUser;
+    private FloatingActionButton boton;
 
 
     @SuppressLint("WrongViewCast")
@@ -55,12 +58,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        currentUser = new User();
+        currentUser.setUserName(getIntent().getStringExtra("username"));
+        
+
+        listProductContainer = (ListView) findViewById(R.id.product_container);
+        boton = findViewById(R.id.fab);
+
         findViewById(R.id.topContainerAppBar).bringToFront();
         findViewById(R.id.bottomNavigationView).setBackground(null);
-        FloatingActionButton boton = findViewById(R.id.fab);
         boton.setColorFilter(Color.WHITE);
+
         queue = Volley.newRequestQueue(this);
-        listProductContainer = (ListView) findViewById(R.id.product_container);
         getDataVolley();
         updateUI();
     }

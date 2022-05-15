@@ -150,4 +150,9 @@ public class UserActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChartActivity.class);
         startActivity(intent);
     }
+
+    public void goPurschase(View view){
+        Intent intent = new Intent(this, PurchaseActivity.class);
+        startActivity(intent);
+    }
 }

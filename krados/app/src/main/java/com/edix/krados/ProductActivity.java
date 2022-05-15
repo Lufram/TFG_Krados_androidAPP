@@ -53,12 +53,11 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     private void addProductCartVolley (Long cartId, Long productId, int amount, View view ){
-        String url = String.format("http://10.0.2.2:8086/krados/products/productInCart?cartId=%1$s&productId=%2$s&amount=%3$s", cartId, productId, amount);
+        String url = String.format("http://10.0.2.2:8086/krados/cart/productInCart?cartId=%1$s&productId=%2$s&amount=%3$s", cartId, productId, amount);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println("AÑADIDO");
                 goChart(view);
             }
 

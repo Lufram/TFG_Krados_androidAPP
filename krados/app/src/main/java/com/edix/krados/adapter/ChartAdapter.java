@@ -34,7 +34,7 @@ public class ChartAdapter extends ArrayAdapter<Product> {
         TextView name = (TextView) convertView.findViewById(R.id.chart_product_name_text);
         TextView price = (TextView) convertView.findViewById(R.id.chart_product_price_text);
         EditText amount = (EditText) convertView.findViewById(R.id.chart_product_editTextNumber);
-        TextView subPriceView = (TextView) convertView.findViewById(R.id.chart_total_product_price_text);
+        TextView subPriceView = (TextView) convertView.findViewById(R.id.chart_item_total_product_price_text);
 
         // Lead actual.
         Product product = getItem(position);

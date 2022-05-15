@@ -37,7 +37,8 @@ public class ChartActivity extends AppCompatActivity {
     private RequestQueue queue;
     private ChartAdapter pAdapter;
 
-
+    //TODO
+    //FIX TOTAL AMOUNT WHEN YOU DELETE ALL THE CART PRODUCTS
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class ChartActivity extends AppCompatActivity {
 
     private void getDataByCartIdVolley (String cartId){
 
-        String url = "http://10.0.2.2:8086/krados/products/productInCart/" + cartId;
+        String url = "http://10.0.2.2:8086/krados/cart/productInCart/" + cartId;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
             @Override
@@ -85,12 +86,11 @@ public class ChartActivity extends AppCompatActivity {
     }
 
     private void updateDataCartVolley (Long cartId, Long productId, int amount ){
-        String url = String.format("http://10.0.2.2:8086/krados/products/productInCart?cartId=%1$s&productId=%2$s&amount=%3$s", cartId, productId, amount);
+        String url = String.format("http://10.0.2.2:8086/krados/cart/productInCart?cartId=%1$s&productId=%2$s&amount=%3$s", cartId, productId, amount);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println("Modificado");
                 getDataByCartIdVolley(String.valueOf(cartId));
             }
 
@@ -101,12 +101,26 @@ public class ChartActivity extends AppCompatActivity {
     }
 
     private void deleteDataCartVolley(Long cartId, Long productId){
-        String url = String.format("http://10.0.2.2:8086/krados/products/productInCart?cartId=%1$s&productId=%2$s", cartId, productId);
+        String url = String.format("http://10.0.2.2:8086/krados/cart/productInCart?cartId=%1$s&productId=%2$s", cartId, productId);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println("ELIMINDADO");
+                getDataByCartIdVolley(String.valueOf(cartId));
+            }
+
+        }, error -> {
+            System.out.println(error);
+        });
+        queue.add(request);
+    }
+
+    private void deleteAllDataCartVolley(Long cartId){
+        String url = String.format("http://10.0.2.2:8086/krados/cart/deleteProductsInCart?cartId=%1$s", cartId);
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.DELETE, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
                 getDataByCartIdVolley(String.valueOf(cartId));
             }
 
@@ -197,10 +211,21 @@ public class ChartActivity extends AppCompatActivity {
     }
 
     private void setTotalPrice(){
-        Double totalPrice= 0.00;
+        Double totalPrice = 0.00;
         for (Product p: productList){
             totalPrice += p.getuPrice()*p.getAmount();
         }
         cartTotalProductPrice.setText(String.valueOf(totalPrice + "€"));
+    }
+
+    private void addPurchase(){
+
+    }
+
+    public void makeAnOrder(View view){
+        addPurchase();
+        deleteAllDataCartVolley(1L);
+        cartTotalProductPrice.setText("0.00€");
+        Toast.makeText(getApplicationContext(),"El pedido se ha realizado con exito",Toast.LENGTH_LONG).show();
     }
 }

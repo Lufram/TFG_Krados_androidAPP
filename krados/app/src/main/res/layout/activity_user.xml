@@ -78,6 +78,7 @@
                     android:backgroundTint="@color/grey_l"
                     android:backgroundTintMode="add"
                     android:text="MIS PEDIDOS"
+                    android:onClick="goPurschase"
                     android:textColor="@color/white"
                     android:textSize="16dp"
                     android:textStyle="bold" />
