@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Krados"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ChangePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".InfoPurchaseActivity"
             android:exported="false" />
         <activity

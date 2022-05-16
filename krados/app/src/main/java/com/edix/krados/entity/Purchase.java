@@ -6,6 +6,7 @@ public class Purchase {
     private Long id;
     private Date purchaseDate;
     private String status;
+    private double totalPrice;
     private Long clientId;
 
     public Purchase() {
@@ -41,5 +42,13 @@ public class Purchase {
 
     public void setClientId(Long clientId) {
         this.clientId = clientId;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

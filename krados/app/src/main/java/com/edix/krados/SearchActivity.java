@@ -18,10 +18,12 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.ProductAdapter;
 import com.edix.krados.entity.Product;
+import com.edix.krados.entity.User;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.button.MaterialButton;
@@ -38,23 +40,31 @@ public class SearchActivity extends AppCompatActivity {
 
     private ListView listProductContainer;
     private BottomAppBar bottomAppBar;
-
-    List<Product> productList = new ArrayList<>();
+    private List<Product> productList = new ArrayList<>();
     private RequestQueue queue;
     private ProductAdapter pAdapter;
+    private FloatingActionButton boton;
+    private Toolbar toolbar;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        currentUser = new User();
+        currentUser.setUserName(getIntent().getStringExtra("username"));
+
         bottomAppBar = findViewById(R.id.bottomAppBar);
-        findViewById(R.id.bottomNavigationView).setBackground(null);
-        FloatingActionButton boton = findViewById(R.id.fab);
-        boton.setColorFilter(Color.WHITE);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.topAppBarSearch);
-        setSupportActionBar(toolbar);
-        queue = Volley.newRequestQueue(this);
         listProductContainer = findViewById(R.id.product_container_search);
+        boton = findViewById(R.id.fab);
+        toolbar = (Toolbar) findViewById(R.id.topAppBarSearch);
+
+        findViewById(R.id.bottomNavigationView).setBackground(null);
+        boton.setColorFilter(Color.WHITE);
+        setSupportActionBar(toolbar);
+
+        queue = Volley.newRequestQueue(this);
 
     }
 
@@ -103,8 +113,11 @@ public class SearchActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }, error -> {
-            System.out.println(error);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
         });
         queue.add(request);
     }
@@ -134,6 +147,7 @@ public class SearchActivity extends AppCompatActivity {
         Product p = getDataByName(textNameProduct.getText().toString());
 
         Intent intent = new Intent(this, ProductActivity.class);
+        intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("id",p.getId());
         intent.putExtra("name",p.getName());
         intent.putExtra("price",p.getuPrice());
@@ -144,16 +158,19 @@ public class SearchActivity extends AppCompatActivity {
 
     public void goUserActivity(MenuItem menu){
         Intent intent = new Intent(this, UserActivity.class);
+        intent.putExtra("username",currentUser.getUserName());
         startActivity(intent);
     }
 
     public void goBack(MenuItem menu){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("username",currentUser.getUserName());
         startActivity(intent);
     }
 
     public void goChart(View view){
         Intent intent = new Intent(this, ChartActivity.class);
+        intent.putExtra("username",currentUser.getUserName());
         startActivity(intent);
     }
 
