@@ -33,9 +33,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="20dp"
         android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
         android:paddingTop="?attr/actionBarSize"
         tools:layout_editor_absoluteY="56dp">
 
@@ -51,23 +51,26 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@drawable/g_panel"
-            >
+            android:backgroundTint="#00FFFFFF">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:srcCompat="@null" />
+                android:scaleType="fitXY"
+                android:background="@drawable/g_panel"
+                app:srcCompat="@drawable/banner" />
 
             <Button
                 android:id="@+id/info_button"
-                android:layout_width="170dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="85dp"
-                android:text="mas información"
-                android:textSize="10sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="goInfoPage"
+                android:backgroundTint="#00FFFFFF"
+                android:drawableTint="#00FFFFFF"
+                android:foregroundTint="#00FFFFFF"
+                app:rippleColor="#00FFFFFF"
+                app:strokeColor="#00FFFFFF"
                 android:visibility="visible" />
 
         </FrameLayout>
@@ -82,8 +85,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/category1_button"
@@ -92,46 +94,46 @@
                     android:src="@drawable/ic_teclado_icon" />
 
                 <ImageButton
-                    android:src="@drawable/ic_raton_icon"
-                    android:onClick="goCategory2"
                     android:id="@+id/category2_button"
-                    style="@style/category_button" />
+                    style="@style/category_button"
+                    android:onClick="goCategory2"
+                    android:src="@drawable/ic_raton_icon" />
+
                 <ImageButton
-                    android:src="@drawable/ic_cascos_icon"
-                    android:onClick="goCategory3"
                     android:id="@+id/category3_button"
                     style="@style/category_button"
-                    />
+                    android:onClick="goCategory3"
+                    android:src="@drawable/ic_cascos_icon" />
 
                 <ImageButton
-                    android:src="@drawable/ic_pc_icon"
-                    android:onClick="goCategory4"
                     android:id="@+id/category4_button"
                     style="@style/category_button"
-                    />
-                <ImageButton
-                    android:src="@drawable/ic_silla_icon"
-                    android:onClick="goCategory5"
-                    android:id="@+id/category5_button"
-                    style="@style/category_button" />
-                <ImageButton
-                    android:src="@drawable/ic_movil_icon"
-                    android:onClick="goCategory6"
-                    android:id="@+id/category6_button"
-                    style="@style/category_button" />
+                    android:onClick="goCategory4"
+                    android:src="@drawable/ic_pc_icon" />
 
+                <ImageButton
+                    android:id="@+id/category5_button"
+                    style="@style/category_button"
+                    android:onClick="goCategory5"
+                    android:src="@drawable/ic_silla_icon" />
+
+                <ImageButton
+                    android:id="@+id/category6_button"
+                    style="@style/category_button"
+                    android:onClick="goCategory6"
+                    android:src="@drawable/ic_movil_icon" />
 
 
             </LinearLayout>
         </HorizontalScrollView>
 
-            <ListView
-                android:id="@+id/product_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="85dp"/>
+        <ListView
+            android:id="@+id/product_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="85dp"
+            android:orientation="vertical" />
 
     </LinearLayout>
 
@@ -161,9 +163,9 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/orange"
         android:contentDescription="@string/app_name"
+        android:onClick="goChart"
         android:src="@drawable/ic_baseline_shopping_cart_24"
         android:tint="@color/white"
-        android:onClick="goChart"
         app:layout_anchor="@id/bottomAppBar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

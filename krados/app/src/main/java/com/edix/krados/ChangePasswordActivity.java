@@ -28,6 +28,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         currentUser = new User();
         currentUser.setUserName(getIntent().getStringExtra("username"));
+        currentUser.setJwt(getIntent().getStringExtra("jwt"));
 
         currentPassword = findViewById(R.id.change_password_input_text_current_password);
         newPasswordInput = findViewById(R.id.change_password_input_text_new_password);
@@ -77,6 +78,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     public void goBack(View view) {
         Intent intent = new Intent(this, UserActivity.class);
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 }

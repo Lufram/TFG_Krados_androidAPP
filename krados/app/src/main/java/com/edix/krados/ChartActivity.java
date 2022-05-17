@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ChartActivity extends AppCompatActivity {
 
@@ -48,7 +50,7 @@ public class ChartActivity extends AppCompatActivity {
     private Client c;
     private LinearProgressIndicator bProgreso;
     private String pattern = "#.##";
-    private DecimalFormat decimalFormat =  new DecimalFormat(pattern);
+    private DecimalFormat decimalFormat = new DecimalFormat(pattern);
 
     //TODO
     //FIX TOTAL AMOUNT WHEN YOU DELETE ALL THE CART PRODUCTS
@@ -60,6 +62,7 @@ public class ChartActivity extends AppCompatActivity {
 
         currentUser = new User();
         currentUser.setUserName(getIntent().getStringExtra("username"));
+        currentUser.setJwt(getIntent().getStringExtra("jwt"));
 
         listProductContainer = (ListView) findViewById(R.id.cart_product_container);
         cartTotalProductPrice = findViewById(R.id.chart_total_product_price_text);
@@ -102,7 +105,15 @@ public class ChartActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
@@ -130,7 +141,15 @@ public class ChartActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
@@ -148,7 +167,15 @@ public class ChartActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
@@ -166,7 +193,15 @@ public class ChartActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
@@ -184,7 +219,15 @@ public class ChartActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
@@ -201,7 +244,15 @@ public class ChartActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
@@ -297,13 +348,14 @@ public class ChartActivity extends AppCompatActivity {
     public void goBack(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("username", currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 
     public void makeAnOrder(View view) {
-        if(productList.isEmpty()){
+        if (productList.isEmpty()) {
             Toast.makeText(getApplicationContext(), "No hay ningun producto en el carrito", Toast.LENGTH_LONG).show();
-        }else{
+        } else {
             addPurchase();
             try {
                 Thread.sleep(1000);

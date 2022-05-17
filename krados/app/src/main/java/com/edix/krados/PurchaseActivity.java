@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,7 +30,9 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PurchaseActivity extends AppCompatActivity {
 
@@ -49,6 +52,7 @@ public class PurchaseActivity extends AppCompatActivity {
 
         currentUser = new User();
         currentUser.setUserName(getIntent().getStringExtra("username"));
+        currentUser.setJwt(getIntent().getStringExtra("jwt"));
         c = new Client();
         c.setId(getIntent().getLongExtra("id", 0));
 
@@ -90,7 +94,16 @@ public class PurchaseActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
@@ -116,6 +129,7 @@ public class PurchaseActivity extends AppCompatActivity {
     public void goBack(View view){
         Intent intent = new Intent(this, UserActivity.class);
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 
@@ -125,6 +139,7 @@ public class PurchaseActivity extends AppCompatActivity {
         Purchase p = searchPurchaseById(Long.parseLong(idText.getText().toString()), purchaseList);
 
         Intent intent = new Intent(this, InfoPurchaseActivity.class);
+        intent.putExtra("jwt", currentUser.getJwt());
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("id", p.getId());
         intent.putExtra("clientId", c.getId());

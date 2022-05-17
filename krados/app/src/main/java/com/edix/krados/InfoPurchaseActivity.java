@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,7 +29,9 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InfoPurchaseActivity extends AppCompatActivity {
 
@@ -50,6 +53,7 @@ public class InfoPurchaseActivity extends AppCompatActivity {
 
         currentUser = new User();
         currentUser.setUserName(getIntent().getStringExtra("username"));
+        currentUser.setJwt(getIntent().getStringExtra("jwt"));
         client = new Client();
         client.setId(getIntent().getLongExtra("clientId", 0));
 
@@ -92,7 +96,16 @@ public class InfoPurchaseActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
@@ -107,6 +120,7 @@ public class InfoPurchaseActivity extends AppCompatActivity {
 
     public void goBack(View view) {
         Intent intent = new Intent(this, PurchaseActivity.class);
+        intent.putExtra("jwt", currentUser.getJwt());
         intent.putExtra("username", currentUser.getUserName());
         intent.putExtra("id", client.getId());
 

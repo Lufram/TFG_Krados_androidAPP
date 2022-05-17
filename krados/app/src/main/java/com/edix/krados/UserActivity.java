@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -37,7 +38,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class UserActivity extends AppCompatActivity {
@@ -68,6 +71,7 @@ public class UserActivity extends AppCompatActivity {
 
         currentUser = new User();
         currentUser.setUserName(getIntent().getStringExtra("username"));
+        currentUser.setJwt(getIntent().getStringExtra("jwt"));
 
         isPressed = false;
         bottomAppBar = findViewById(R.id.bottomAppBar);
@@ -84,7 +88,6 @@ public class UserActivity extends AppCompatActivity {
         cityInput = findViewById(R.id.profile_input_text_city);
         stateInput = findViewById(R.id.profile_input_text_state);
         postalCodeInput = findViewById(R.id.profile_input_text_postal_code);
-
         findViewById(R.id.bottomNavigationView).setBackground(null);
         boton.setColorFilter(Color.WHITE);
         queue = Volley.newRequestQueue(this);
@@ -125,7 +128,16 @@ public class UserActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
@@ -206,6 +218,7 @@ public class UserActivity extends AppCompatActivity {
     public void backAction(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("username", currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 
@@ -215,12 +228,14 @@ public class UserActivity extends AppCompatActivity {
     public void goChangePassword(View view) {
         Intent intent = new Intent(this, ChangePasswordActivity.class);
         intent.putExtra("username", currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 
     public void goBack(MenuItem menu) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("username", currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 
@@ -233,12 +248,14 @@ public class UserActivity extends AppCompatActivity {
     public void goChart(View view) {
         Intent intent = new Intent(this, ChartActivity.class);
         intent.putExtra("username", currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 
     public void goPurschase(View view) {
         Intent intent = new Intent(this, PurchaseActivity.class);
         intent.putExtra("username", currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         intent.putExtra("id", c.getId());
         startActivity(intent);
     }

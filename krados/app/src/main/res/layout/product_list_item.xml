@@ -54,7 +54,6 @@
         android:backgroundTint="#00FFFFFF"
         android:drawableTint="#00FFFFFF"
         android:elegantTextHeight="true"
-        android:focusableInTouchMode="true"
         android:foregroundTint="#00FFFFFF"
         app:rippleColor="#00FFFFFF"
         app:strokeColor="#00FFFFFF"

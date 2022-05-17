@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,7 +28,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -48,6 +51,7 @@ public class ProductActivity extends AppCompatActivity {
 
         currentUser = new User();
         currentUser.setUserName(getIntent().getStringExtra("username"));
+        currentUser.setJwt(getIntent().getStringExtra("jwt"));
         currentProduct = new Product();
         currentProduct.setId(getIntent().getLongExtra("id", 0));
         currentProduct.setName(getIntent().getStringExtra("name"));
@@ -59,14 +63,14 @@ public class ProductActivity extends AppCompatActivity {
         info = (TextView) findViewById(R.id.current_product_info_text);
         editTextNumOfProd = findViewById(R.id.current_product_editTextNumber);
 
-        editTextNumOfProd.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "100")});
+        editTextNumOfProd.setFilters(new InputFilter[]{new InputFilterMinMax("1", "100")});
 
         queue = Volley.newRequestQueue(this);
         getUserDataByUsernameVolley(currentUser.getUserName());
         updateUI();
     }
 
-    private void addProductCartVolley (Long cartId, Long productId, int amount, View view ){
+    private void addProductCartVolley(Long cartId, Long productId, int amount, View view) {
         String url = String.format("http://10.0.2.2:8086/krados/cart/productInCart?cartId=%1$s&productId=%2$s&amount=%3$s", cartId, productId, amount);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
@@ -80,7 +84,15 @@ public class ProductActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
@@ -107,49 +119,60 @@ public class ProductActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
-    private void updateUI(){
+    private void updateUI() {
         name.setText(currentProduct.getName());
-        price.setText(String.valueOf(currentProduct.getuPrice())+ " €");
+        price.setText(String.valueOf(currentProduct.getuPrice()) + " €");
         info.setText(currentProduct.getInfo());
     }
 
-    public void addProductCart(View view){
-        addProductCartVolley(c.getCartId(), currentProduct.getId(),Integer.parseInt(editTextNumOfProd.getText().toString()), view);
+    public void addProductCart(View view) {
+        addProductCartVolley(c.getCartId(), currentProduct.getId(), Integer.parseInt(editTextNumOfProd.getText().toString()), view);
 
     }
 
-    public void add(View view){
+    public void add(View view) {
         int initialNumber = Integer.parseInt(editTextNumOfProd.getText().toString());
-        if(initialNumber == 100){
-            Toast.makeText(getApplicationContext(),"No se pueden añadir más productos",Toast.LENGTH_LONG).show();
-        }else{
+        if (initialNumber == 100) {
+            Toast.makeText(getApplicationContext(), "No se pueden añadir más productos", Toast.LENGTH_LONG).show();
+        } else {
             int finalNumber = initialNumber + 1;
             editTextNumOfProd.setText(String.valueOf(finalNumber));
         }
     }
 
-    public void subtract(View view){
+    public void subtract(View view) {
         int initialNumber = Integer.parseInt(editTextNumOfProd.getText().toString());
-        if(initialNumber == 1){
-            Toast.makeText(getApplicationContext(),"La cantidad mínima es 1 producto",Toast.LENGTH_LONG).show();
-        }else{
+        if (initialNumber == 1) {
+            Toast.makeText(getApplicationContext(), "La cantidad mínima es 1 producto", Toast.LENGTH_LONG).show();
+        } else {
             int finalNumber = initialNumber - 1;
             editTextNumOfProd.setText(String.valueOf(finalNumber));
         }
     }
-    public void goChart(View view){
+
+    public void goChart(View view) {
         Intent intent = new Intent(this, ChartActivity.class);
-        intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("username", currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 
-    public void backAction(View view){
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.putExtra("username",currentUser.getUserName());
+    public void backAction(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("username", currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 }

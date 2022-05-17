@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -43,7 +45,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listProductContainer;
@@ -52,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     private ProductAdapter pAdapter;
     private User currentUser;
     private FloatingActionButton boton;
+    private Button infoButton;
+    private String url;
 
 
     @SuppressLint("WrongViewCast")
@@ -62,10 +68,13 @@ public class MainActivity extends AppCompatActivity {
 
         currentUser = new User();
         currentUser.setUserName(getIntent().getStringExtra("username"));
+        currentUser.setJwt(getIntent().getStringExtra("jwt"));
 
+        infoButton = findViewById(R.id.info_button);
         listProductContainer = (ListView) findViewById(R.id.product_container);
         boton = findViewById(R.id.fab);
 
+        url = "https://www.razer.com/campaigns/halo-infinite";
         findViewById(R.id.topContainerAppBar).bringToFront();
         findViewById(R.id.bottomNavigationView).setBackground(null);
         boton.setColorFilter(Color.WHITE);
@@ -102,7 +111,16 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
     
@@ -134,19 +152,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private String[] getListNames(){
-        String[] names;
-        if(productList.isEmpty()){
-            return null;
-        }else {
-            names = new String[productList.size()];
-            for (int i=0;i<productList.size();i++) {
-                names[i] = productList.get(i).getName();
-            }
-            return names;
-        }
-    }
-
     public void viewProduct(View view){
         View parent = (View) view.getParent();
         TextView textNameProduct = parent.findViewById(R.id.product_name_text);
@@ -154,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, ProductActivity.class);
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         intent.putExtra("id",p.getId());
         intent.putExtra("name",p.getName());
         intent.putExtra("price",p.getuPrice());
@@ -165,12 +171,14 @@ public class MainActivity extends AppCompatActivity {
     public void goUserActivity(MenuItem menu){
         Intent intent = new Intent(this, UserActivity.class);
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 
     public void goChart(View view){
         Intent intent = new Intent(this, ChartActivity.class);
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 
@@ -181,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
     public void goSearch(MenuItem menu){
         Intent intent = new Intent(this, SearchActivity.class);
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 
@@ -188,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CategoryActivity.class);
         intent.putExtra("categoryId","1");
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 
@@ -195,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CategoryActivity.class);
         intent.putExtra("categoryId","2");
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
 
@@ -202,24 +213,34 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CategoryActivity.class);
         intent.putExtra("categoryId","3");
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
     public void goCategory4(View view){
         Intent intent = new Intent(this, CategoryActivity.class);
         intent.putExtra("categoryId","4");
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
     public void goCategory5(View view){
         Intent intent = new Intent(this, CategoryActivity.class);
         intent.putExtra("categoryId","5");
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
     public void goCategory6(View view){
         Intent intent = new Intent(this, CategoryActivity.class);
         intent.putExtra("categoryId","6");
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
+        startActivity(intent);
+    }
+
+    public void goInfoPage(View view){
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
 }

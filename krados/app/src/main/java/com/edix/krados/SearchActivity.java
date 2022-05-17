@@ -15,6 +15,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -34,7 +35,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -54,6 +57,7 @@ public class SearchActivity extends AppCompatActivity {
 
         currentUser = new User();
         currentUser.setUserName(getIntent().getStringExtra("username"));
+        currentUser.setJwt(getIntent().getStringExtra("jwt"));
 
         bottomAppBar = findViewById(R.id.bottomAppBar);
         listProductContainer = findViewById(R.id.product_container_search);
@@ -118,7 +122,16 @@ public class SearchActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
@@ -147,6 +160,7 @@ public class SearchActivity extends AppCompatActivity {
         Product p = getDataByName(textNameProduct.getText().toString());
 
         Intent intent = new Intent(this, ProductActivity.class);
+        intent.putExtra("jwt", currentUser.getJwt());
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("id",p.getId());
         intent.putExtra("name",p.getName());
@@ -158,18 +172,21 @@ public class SearchActivity extends AppCompatActivity {
 
     public void goUserActivity(MenuItem menu){
         Intent intent = new Intent(this, UserActivity.class);
+        intent.putExtra("jwt", currentUser.getJwt());
         intent.putExtra("username",currentUser.getUserName());
         startActivity(intent);
     }
 
     public void goBack(MenuItem menu){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("jwt", currentUser.getJwt());
         intent.putExtra("username",currentUser.getUserName());
         startActivity(intent);
     }
 
     public void goChart(View view){
         Intent intent = new Intent(this, ChartActivity.class);
+        intent.putExtra("jwt", currentUser.getJwt());
         intent.putExtra("username",currentUser.getUserName());
         startActivity(intent);
     }
