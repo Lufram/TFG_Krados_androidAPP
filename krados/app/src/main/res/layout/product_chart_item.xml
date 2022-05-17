@@ -18,6 +18,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_toStartOf="@+id/chart_product_price_text"
             android:text="Nombre producto"
             android:textColor="@color/orange"
             android:textSize="16sp" />
@@ -37,9 +39,10 @@
         <LinearLayout
             android:layout_width="100dp"
             android:layout_height="20dp"
-            android:layout_below="@+id/chart_product_name_text"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginBottom="23dp"
             android:orientation="horizontal">
 
 
@@ -101,7 +104,7 @@
             android:textSize="12dp" />
 
         <TextView
-            android:id="@+id/chart_total_product_price_text"
+            android:id="@+id/chart_item_total_product_price_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sub_total"
@@ -122,7 +125,8 @@
             android:layout_marginTop="36dp"
             android:layout_marginEnd="13dp"
             android:backgroundTint="#0000ffff"
-            android:src="@drawable/delete_icon">
+            android:src="@drawable/delete_icon"
+            android:onClick="deleleProductInCart">
 
         </ImageButton>
 

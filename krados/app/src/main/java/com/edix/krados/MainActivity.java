@@ -25,10 +25,12 @@ import android.widget.Toolbar;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.ProductAdapter;
 import com.edix.krados.entity.Product;
+import com.edix.krados.entity.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -48,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue queue;
     private List<Product> productList = new ArrayList<>();
     private ProductAdapter pAdapter;
+    private User currentUser;
+    private FloatingActionButton boton;
 
 
     @SuppressLint("WrongViewCast")
@@ -55,12 +59,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        currentUser = new User();
+        currentUser.setUserName(getIntent().getStringExtra("username"));
+
+        listProductContainer = (ListView) findViewById(R.id.product_container);
+        boton = findViewById(R.id.fab);
+
         findViewById(R.id.topContainerAppBar).bringToFront();
         findViewById(R.id.bottomNavigationView).setBackground(null);
-        FloatingActionButton boton = findViewById(R.id.fab);
         boton.setColorFilter(Color.WHITE);
+
         queue = Volley.newRequestQueue(this);
-        listProductContainer = (ListView) findViewById(R.id.product_container);
         getDataVolley();
         updateUI();
     }
@@ -87,8 +97,11 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }, error -> {
-            System.out.println(error);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
         });
         queue.add(request);
     }
@@ -140,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
         Product p = getDataByName(textNameProduct.getText().toString());
 
         Intent intent = new Intent(this, ProductActivity.class);
+        intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("id",p.getId());
         intent.putExtra("name",p.getName());
         intent.putExtra("price",p.getuPrice());
@@ -150,11 +164,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void goUserActivity(MenuItem menu){
         Intent intent = new Intent(this, UserActivity.class);
+        intent.putExtra("username",currentUser.getUserName());
         startActivity(intent);
     }
 
     public void goChart(View view){
         Intent intent = new Intent(this, ChartActivity.class);
+        intent.putExtra("username",currentUser.getUserName());
         startActivity(intent);
     }
 
@@ -164,6 +180,46 @@ public class MainActivity extends AppCompatActivity {
 
     public void goSearch(MenuItem menu){
         Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("username",currentUser.getUserName());
+        startActivity(intent);
+    }
+
+    public void goCategory1(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("categoryId","1");
+        intent.putExtra("username",currentUser.getUserName());
+        startActivity(intent);
+    }
+
+    public void goCategory2(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("categoryId","2");
+        intent.putExtra("username",currentUser.getUserName());
+        startActivity(intent);
+    }
+
+    public void goCategory3(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("categoryId","3");
+        intent.putExtra("username",currentUser.getUserName());
+        startActivity(intent);
+    }
+    public void goCategory4(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("categoryId","4");
+        intent.putExtra("username",currentUser.getUserName());
+        startActivity(intent);
+    }
+    public void goCategory5(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("categoryId","5");
+        intent.putExtra("username",currentUser.getUserName());
+        startActivity(intent);
+    }
+    public void goCategory6(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("categoryId","6");
+        intent.putExtra("username",currentUser.getUserName());
         startActivity(intent);
     }
 }

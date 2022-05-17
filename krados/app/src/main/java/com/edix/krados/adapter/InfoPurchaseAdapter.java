@@ -14,12 +14,12 @@ import com.edix.krados.entity.Product;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class ChartAdapter extends ArrayAdapter<Product> {
-    public ChartAdapter(Context context, List<Product> objects) {
-        super(context, 0, objects);
-    }
+public class InfoPurchaseAdapter extends ArrayAdapter<Product> {
     private String pattern = "#.##";
     private DecimalFormat decimalFormat =  new DecimalFormat(pattern);
+    public InfoPurchaseAdapter(Context context, List<Product> objects) {
+        super(context, 0, objects);
+    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Obtener inflater.
@@ -28,16 +28,16 @@ public class ChartAdapter extends ArrayAdapter<Product> {
 
         if (null == convertView) {
             convertView = inflater.inflate(
-                    R.layout.product_chart_item,
+                    R.layout.info_purchase_item,
                     parent,
                     false);
         }
 
         // Referencias UI.
-        TextView name = (TextView) convertView.findViewById(R.id.chart_product_name_text);
-        TextView price = (TextView) convertView.findViewById(R.id.chart_product_price_text);
-        EditText amount = (EditText) convertView.findViewById(R.id.chart_product_editTextNumber);
-        TextView subPriceView = (TextView) convertView.findViewById(R.id.chart_item_total_product_price_text);
+        TextView name = (TextView) convertView.findViewById(R.id.info_purchase_product_name_text);
+        TextView price = (TextView) convertView.findViewById(R.id.info_purchase_product_price_text);
+        TextView amount = (TextView) convertView.findViewById(R.id.info_purchase_product_amount_text);
+        TextView subPriceView = (TextView) convertView.findViewById(R.id.info_purchase_total_product_price_text);
 
         // Lead actual.
         Product product = getItem(position);
@@ -45,8 +45,8 @@ public class ChartAdapter extends ArrayAdapter<Product> {
         // Setup.
         name.setText(product.getName());
         price.setText(String.valueOf(product.getuPrice())+ " €");
-        amount.setText(String.valueOf(product.getAmount()));
-        Double subPrice = Double.parseDouble(decimalFormat.format(product.getuPrice() * product.getAmount()));
+        amount.setText(decimalFormat.format(product.getAmount()));
+        Double subPrice = product.getuPrice() * product.getAmount();
         subPriceView.setText(decimalFormat.format(subPrice)+ " €");
 
         return convertView;

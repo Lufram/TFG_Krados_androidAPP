@@ -2,11 +2,10 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/searchContainer"
+    android:id="@+id/categoryContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity"
-    tools:ignore="MissingClass">
+    tools:context=".CategoryActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topContainerAppBarSearch"
@@ -43,7 +42,7 @@
 
 
         <ListView
-            android:id="@+id/product_container_search"
+            android:id="@+id/product_container_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -82,7 +81,7 @@
         android:src="@drawable/ic_baseline_shopping_cart_24"
         android:tint="@color/white"
         android:onClick="goChart"
-        app:layout_anchor="@id/bottomAppBar" />
+        app:layout_anchor="@id/bottomAppBar"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
