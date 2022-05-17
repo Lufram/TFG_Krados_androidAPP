@@ -11,12 +11,15 @@ import android.widget.TextView;
 import com.edix.krados.R;
 import com.edix.krados.entity.Product;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ChartAdapter extends ArrayAdapter<Product> {
     public ChartAdapter(Context context, List<Product> objects) {
         super(context, 0, objects);
     }
+    private String pattern = "#.##";
+    private DecimalFormat decimalFormat =  new DecimalFormat(pattern);
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Obtener inflater.
@@ -43,8 +46,8 @@ public class ChartAdapter extends ArrayAdapter<Product> {
         name.setText(product.getName());
         price.setText(String.valueOf(product.getuPrice())+ " €");
         amount.setText(String.valueOf(product.getAmount()));
-        Double subPrice = product.getuPrice() * product.getAmount();
-        subPriceView.setText(String.valueOf(subPrice)+ " €");
+        Double subPrice = Double.parseDouble(decimalFormat.format(product.getuPrice() * product.getAmount()));
+        subPriceView.setText(decimalFormat.format(subPrice)+ " €");
 
         return convertView;
     }

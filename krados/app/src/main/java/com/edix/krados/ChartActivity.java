@@ -31,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import java.util.HashMap;
@@ -46,6 +47,8 @@ public class ChartActivity extends AppCompatActivity {
     private User currentUser;
     private Client c;
     private LinearProgressIndicator bProgreso;
+    private String pattern = "#.##";
+    private DecimalFormat decimalFormat =  new DecimalFormat(pattern);
 
     //TODO
     //FIX TOTAL AMOUNT WHEN YOU DELETE ALL THE CART PRODUCTS
@@ -283,7 +286,7 @@ public class ChartActivity extends AppCompatActivity {
         for (Product p : productList) {
             totalPrice += p.getuPrice() * p.getAmount();
         }
-        cartTotalProductPrice.setText(String.valueOf(totalPrice + "€"));
+        cartTotalProductPrice.setText(decimalFormat.format(totalPrice) + "€");
     }
 
     private void addPurchase() {

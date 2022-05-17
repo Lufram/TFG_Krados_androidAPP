@@ -4,11 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,10 +20,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -63,28 +59,37 @@ public class RegisterActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
     }
 
-    private void registerNewUserVolley ( HashMap hasMap, View view){
-        String url =  "http://10.0.2.2:8086/krados/register";
+
+    private void registerNewUserVolley ( HashMap hasMap, View view) {
+        String url = "http://10.0.2.2:8086/krados/register";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(hasMap), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println("REGISTRADO");
                 createAccount(view);
             }
 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(RegisterActivity.this, "No es posible realizar el registro", Toast.LENGTH_LONG).show();
+                if(error.networkResponse.statusCode == 400){
+                    Toast.makeText(RegisterActivity.this, "Ya existe este correo", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(RegisterActivity.this, "No se ha podido realizar el registro", Toast.LENGTH_LONG).show();
+                }
             }
-        });
+        }) {
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                int mStatusCode = response.statusCode;
+                return super.parseNetworkResponse(response);
+            }
+        };
         queue.add(request);
     }
 
     public void createAccount(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("username",emailInput.getText().toString());
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 

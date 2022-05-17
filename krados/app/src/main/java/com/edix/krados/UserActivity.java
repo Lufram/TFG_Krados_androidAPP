@@ -107,7 +107,7 @@ public class UserActivity extends AppCompatActivity {
                     address.setCityName(jresponse.getString("cityName"));
                     address.setStateName(jresponse.getString("extraInfo"));
                     address.setRoadNumber(Integer.parseInt(jresponse.getString("number")));
-                    address.setPostalCode(Integer.parseInt(jresponse.getString("postalCode")));
+                    address.setPostalCode(jresponse.getString("postalCode"));
 
                     c.setId(Long.parseLong(response.getString("id")));
                     c.setName(response.getString("name"));

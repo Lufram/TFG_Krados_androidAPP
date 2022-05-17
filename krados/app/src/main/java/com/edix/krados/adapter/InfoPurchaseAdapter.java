@@ -11,9 +11,12 @@ import android.widget.TextView;
 import com.edix.krados.R;
 import com.edix.krados.entity.Product;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class InfoPurchaseAdapter extends ArrayAdapter<Product> {
+    private String pattern = "#.##";
+    private DecimalFormat decimalFormat =  new DecimalFormat(pattern);
     public InfoPurchaseAdapter(Context context, List<Product> objects) {
         super(context, 0, objects);
     }
@@ -42,9 +45,9 @@ public class InfoPurchaseAdapter extends ArrayAdapter<Product> {
         // Setup.
         name.setText(product.getName());
         price.setText(String.valueOf(product.getuPrice())+ " €");
-        amount.setText(String.valueOf(product.getAmount()));
+        amount.setText(decimalFormat.format(product.getAmount()));
         Double subPrice = product.getuPrice() * product.getAmount();
-        subPriceView.setText(String.valueOf(subPrice)+ " €");
+        subPriceView.setText(decimalFormat.format(subPrice)+ " €");
 
         return convertView;
     }

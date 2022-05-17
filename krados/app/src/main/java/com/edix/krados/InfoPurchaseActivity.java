@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,8 @@ public class InfoPurchaseActivity extends AppCompatActivity {
     private Product product;
     private RequestQueue queue;
     private List<Product> productList = new ArrayList<>();
+    private String pattern = "#.##";
+    private DecimalFormat decimalFormat =  new DecimalFormat(pattern);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class InfoPurchaseActivity extends AppCompatActivity {
         totalPriceText = findViewById(R.id.info_purchase_total_product_price_text);
         listInfoPurchaseContainer = findViewById(R.id.info_purchase_container);
 
-        totalPriceText.setText(String.valueOf(getIntent().getDoubleExtra("totalPrice", 0)) + "€");
+        totalPriceText.setText(decimalFormat.format(getIntent().getDoubleExtra("totalPrice", 0)) + "€");
 
         queue = Volley.newRequestQueue(this);
         getInfoPurchaseByClientIdVolley(getIntent().getLongExtra("id", 0));

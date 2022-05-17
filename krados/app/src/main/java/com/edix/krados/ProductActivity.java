@@ -18,10 +18,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.ChartAdapter;
+import com.edix.krados.entity.Client;
 import com.edix.krados.entity.Product;
 import com.edix.krados.entity.User;
 import com.edix.krados.utilities.InputFilterMinMax;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class ProductActivity extends AppCompatActivity {
     private EditText editTextNumOfProd;
     private RequestQueue queue;
     private User currentUser;
+    private Client c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class ProductActivity extends AppCompatActivity {
         editTextNumOfProd.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "100")});
 
         queue = Volley.newRequestQueue(this);
+        getUserDataByUsernameVolley(currentUser.getUserName());
         updateUI();
     }
 
@@ -80,6 +84,33 @@ public class ProductActivity extends AppCompatActivity {
         queue.add(request);
     }
 
+    private void getUserDataByUsernameVolley(String username) {
+
+        String url = String.format("http://10.0.2.2:8086/krados/client?userName=%1$s", username);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    c = null;
+                    JSONObject jresponse = response.getJSONObject("address");
+                    c = new Client();
+                    c.setCartId(Long.parseLong(response.getString("cartId")));
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
+        });
+        queue.add(request);
+    }
+
     private void updateUI(){
         name.setText(currentProduct.getName());
         price.setText(String.valueOf(currentProduct.getuPrice())+ " €");
@@ -87,7 +118,7 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     public void addProductCart(View view){
-        addProductCartVolley(1L, currentProduct.getId(),Integer.parseInt(editTextNumOfProd.getText().toString()), view);
+        addProductCartVolley(c.getCartId(), currentProduct.getId(),Integer.parseInt(editTextNumOfProd.getText().toString()), view);
 
     }
 

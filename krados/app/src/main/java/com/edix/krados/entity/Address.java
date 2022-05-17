@@ -6,7 +6,7 @@ public class Address {
     private String cityName;
     private String stateName;
     private int roadNumber;
-    private int postalCode;
+    private String postalCode;
 
     public Address() {
     }
@@ -51,11 +51,11 @@ public class Address {
         this.roadNumber = roadNumber;
     }
 
-    public int getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(int postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 }
