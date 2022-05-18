@@ -8,18 +8,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.edix.krados.entity.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
     private TextInputEditText currentPassword;
     private TextInputEditText newPasswordInput;
     private TextInputEditText checkPasswordInput;
+    private TextInputLayout currentPasswordLayout;
     private TextInputLayout newPasswordLayout;
     private TextInputLayout passwordCheckLayout;
     private User currentUser;
+    private RequestQueue queue;
+    private HashMap<String, String> hashMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +49,46 @@ public class ChangePasswordActivity extends AppCompatActivity {
         currentPassword = findViewById(R.id.change_password_input_text_current_password);
         newPasswordInput = findViewById(R.id.change_password_input_text_new_password);
         checkPasswordInput = findViewById(R.id.change_password_input_text_check_password);
+        currentPasswordLayout = findViewById(R.id.change_password_layout_current_password);
         newPasswordLayout = findViewById(R.id.change_password_layout_new_password);
         passwordCheckLayout = findViewById(R.id.change_password_layout_check_password);
+
+        queue = Volley.newRequestQueue(this);
+    }
+
+    private void changePasswordVolley (HashMap hasMap) {
+        String url = "http://10.0.2.2:8086/krados/updatePassword";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(hasMap), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Toast.makeText(ChangePasswordActivity.this, "Contraseña modificada con exito", Toast.LENGTH_LONG).show();
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if(error.networkResponse.statusCode == 400){
+                    Toast.makeText(ChangePasswordActivity.this, "La contraseña no es correcta", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(ChangePasswordActivity.this, "No se ha podido modificar la contraseña", Toast.LENGTH_LONG).show();
+                }
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                int mStatusCode = response.statusCode;
+                return super.parseNetworkResponse(response);
+            }
+        };
+        queue.add(request);
     }
 
     public void validateFields(View view){
@@ -55,23 +109,30 @@ public class ChangePasswordActivity extends AppCompatActivity {
         if(newPass.length() < 6){
             newPasswordLayout.setErrorEnabled(true);
             newPasswordLayout.setError("Debe que tener 6 caracteres como mínimo");
+            newPasswordLayout.requestFocus();
             error++;
             if(!passCheck.equals(newPass)){
                 passwordCheckLayout.setErrorEnabled(true);
                 passwordCheckLayout.setError("Las contraseñas deben coincidir");
+                passwordCheckLayout.requestFocus();
                 error++;
             }
         }else if(!passCheck.equals(newPass)){
             passwordCheckLayout.setErrorEnabled(true);
             passwordCheckLayout.setError("Las contraseñas deben coincidir");
+            passwordCheckLayout.requestFocus();
             error++;
         }
 
         if (error == 0) {
+            hashMap = new HashMap<>();
+            hashMap.put("username", currentUser.getUserName());
+            hashMap.put("oldPassword", currentPass);
+            hashMap.put("newPassword", newPass);
             currentPassword.setText("");
             newPasswordInput.setText("");
-            checkPasswordInput.setText("");
-            Toast.makeText(this, "La contraseña se ha actualizado con exito", Toast.LENGTH_LONG).show();
+            currentPasswordLayout.requestFocus();
+            changePasswordVolley(hashMap);
         }
     }
 

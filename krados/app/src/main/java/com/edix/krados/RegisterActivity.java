@@ -119,15 +119,18 @@ public class RegisterActivity extends AppCompatActivity {
         if(pass.length() < 6){
             passwordLayout.setErrorEnabled(true);
             passwordLayout.setError("Debe que tener 6 caracteres como mínimo");
+            passwordLayout.requestFocus();
             error++;
             if(!passCheck.equals(pass)){
                 passwordCheckLayout.setErrorEnabled(true);
                 passwordCheckLayout.setError("Las contraseñas deben coincidir");
+                passwordCheckLayout.requestFocus();
                 error++;
             }
         }else if(!passCheck.equals(pass)){
             passwordCheckLayout.setErrorEnabled(true);
             passwordCheckLayout.setError("Las contraseñas deben coincidir");
+            passwordCheckLayout.requestFocus();
             error++;
         }
 

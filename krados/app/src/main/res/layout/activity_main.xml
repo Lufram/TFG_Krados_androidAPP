@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
                 android:background="@drawable/g_panel"
-                app:srcCompat="@drawable/banner" />
+                />
 
             <Button
                 android:id="@+id/info_button"

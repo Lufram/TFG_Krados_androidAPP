@@ -121,7 +121,16 @@ public class CategoryActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
             }
-        });
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
         queue.add(request);
     }
 
@@ -194,6 +203,7 @@ public class CategoryActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, ProductActivity.class);
         intent.putExtra("username",currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
         intent.putExtra("id",p.getId());
         intent.putExtra("name",p.getName());
         intent.putExtra("price",p.getuPrice());

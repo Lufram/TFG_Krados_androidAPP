@@ -90,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
         int error = 0;
 
         String name = user.getText().toString().toLowerCase();
-        System.out.println(name);
         String pass = password.getText().toString();
 
         if (name.equals("") || pass.equals("")) {
