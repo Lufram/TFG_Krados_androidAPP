@@ -50,7 +50,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="180dp"
             android:backgroundTint="#00FFFFFF">
 
             <ImageView
@@ -58,20 +58,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
-                android:background="@drawable/g_panel"
+                android:src="@drawable/banner"
+                android:background="@drawable/banner_background"
                 />
 
             <Button
                 android:id="@+id/info_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="goInfoPage"
                 android:backgroundTint="#00FFFFFF"
                 android:drawableTint="#00FFFFFF"
+                android:elegantTextHeight="true"
                 android:foregroundTint="#00FFFFFF"
                 app:rippleColor="#00FFFFFF"
                 app:strokeColor="#00FFFFFF"
-                android:visibility="visible" />
+                android:stateListAnimator="@null"
+                android:onClick="goInfoPage"/>
+
 
         </FrameLayout>
 
@@ -79,7 +82,7 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:padding="0dp">
 
             <LinearLayout
