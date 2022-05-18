@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -145,7 +146,13 @@ public class ProductActivity extends AppCompatActivity {
     public void add(View view) {
         int initialNumber = Integer.parseInt(editTextNumOfProd.getText().toString());
         if (initialNumber == 100) {
-            Toast.makeText(getApplicationContext(), "No se pueden añadir más productos", Toast.LENGTH_LONG).show();
+            Toast toast = new Toast(getApplicationContext());
+            View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+            toast.setView(toast_layout);
+            TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+            textView.setText("No se pueden añadir más productos");
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
         } else {
             int finalNumber = initialNumber + 1;
             editTextNumOfProd.setText(String.valueOf(finalNumber));
@@ -155,7 +162,13 @@ public class ProductActivity extends AppCompatActivity {
     public void subtract(View view) {
         int initialNumber = Integer.parseInt(editTextNumOfProd.getText().toString());
         if (initialNumber == 1) {
-            Toast.makeText(getApplicationContext(), "La cantidad mínima es 1 producto", Toast.LENGTH_LONG).show();
+            Toast toast = new Toast(getApplicationContext());
+            View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+            toast.setView(toast_layout);
+            TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+            textView.setText("La cantidad mínima es 1 producto");
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
         } else {
             int finalNumber = initialNumber - 1;
             editTextNumOfProd.setText(String.valueOf(finalNumber));

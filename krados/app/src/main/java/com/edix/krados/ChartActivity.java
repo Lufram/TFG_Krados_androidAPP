@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -291,7 +292,13 @@ public class ChartActivity extends AppCompatActivity {
 
 
         if (initialNumber == 100) {
-            Toast.makeText(getApplicationContext(), "No se pueden añadir más productos", Toast.LENGTH_LONG).show();
+            Toast toast = new Toast(getApplicationContext());
+            View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+            toast.setView(toast_layout);
+            TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+            textView.setText("No se pueden añadir más productos");
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
         } else {
             int finalNumber = initialNumber + 1;
             editTextNumOfCartProd.setText(String.valueOf(finalNumber));
@@ -313,7 +320,13 @@ public class ChartActivity extends AppCompatActivity {
         int initialNumber = Integer.parseInt(editTextNumOfCartProd.getText().toString());
 
         if (initialNumber == 1) {
-            Toast.makeText(getApplicationContext(), "La cantidad mínima es 1 producto", Toast.LENGTH_LONG).show();
+            Toast toast = new Toast(getApplicationContext());
+            View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+            toast.setView(toast_layout);
+            TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+            textView.setText("La cantidad mínima es 1 producto");
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
         } else {
             int finalNumber = initialNumber - 1;
             editTextNumOfCartProd.setText(String.valueOf(finalNumber));
@@ -354,13 +367,25 @@ public class ChartActivity extends AppCompatActivity {
 
     public void makeAnOrder(View view) {
         if (productList.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "No hay ningun producto en el carrito", Toast.LENGTH_LONG).show();
+            Toast toast = new Toast(getApplicationContext());
+            View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+            toast.setView(toast_layout);
+            TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+            textView.setText("No hay ningun producto en el carrito");
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
         } else {
             addPurchase();
             try {
                 Thread.sleep(1000);
                 cartTotalProductPrice.setText("0.00€");
-                Toast.makeText(getApplicationContext(), "El pedido se ha realizado con exito", Toast.LENGTH_LONG).show();
+                Toast toast = new Toast(getApplicationContext());
+                View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_correct, (ViewGroup) findViewById(R.id.correct_toast));
+                toast.setView(toast_layout);
+                TextView textView = (TextView) toast_layout.findViewById(R.id.toastCorrectMessage);
+                textView.setText("El pedido se ha realizado con exito");
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
                 deleteAllDataCartVolley(c.getCartId());
                 bProgreso.setVisibility(View.INVISIBLE);
             } catch (InterruptedException e) {

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -62,16 +64,34 @@ public class ChangePasswordActivity extends AppCompatActivity {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(hasMap), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(ChangePasswordActivity.this, "Contraseña modificada con exito", Toast.LENGTH_LONG).show();
+                Toast toast = new Toast(ChangePasswordActivity.this);
+                View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_correct, (ViewGroup) findViewById(R.id.correct_toast));
+                toast.setView(toast_layout);
+                TextView textView = (TextView) toast_layout.findViewById(R.id.toastCorrectMessage);
+                textView.setText("Contraseña modificada con exito");
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
             }
 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if(error.networkResponse.statusCode == 400){
-                    Toast.makeText(ChangePasswordActivity.this, "La contraseña no es correcta", Toast.LENGTH_LONG).show();
+                    Toast toast = new Toast(ChangePasswordActivity.this);
+                    View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+                    toast.setView(toast_layout);
+                    TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+                    textView.setText("La contraseña no es correcta");
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.show();
                 }else{
-                    Toast.makeText(ChangePasswordActivity.this, "No se ha podido modificar la contraseña", Toast.LENGTH_LONG).show();
+                    Toast toast = new Toast(ChangePasswordActivity.this);
+                    View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+                    toast.setView(toast_layout);
+                    TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+                    textView.setText("No se ha podido modificar la contraseña");
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         }) {
@@ -102,7 +122,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
         String passCheck = checkPasswordInput.getText().toString();
 
         if (newPass.equals("") || passCheck.equals("") || currentPass.equals("") ) {
-            Toast.makeText(this, "Debes completar todos los campos", Toast.LENGTH_LONG).show();
+            Toast toast = new Toast(this);
+            View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+            toast.setView(toast_layout);
+            TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+            textView.setText("Debes completar todos los campos");
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
             error++;
         }
 
@@ -131,6 +157,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             hashMap.put("newPassword", newPass);
             currentPassword.setText("");
             newPasswordInput.setText("");
+            checkPasswordInput.setText("");
             currentPasswordLayout.requestFocus();
             changePasswordVolley(hashMap);
         }

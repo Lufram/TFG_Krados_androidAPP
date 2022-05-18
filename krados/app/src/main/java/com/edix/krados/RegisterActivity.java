@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -73,9 +75,21 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if(error.networkResponse.statusCode == 400){
-                    Toast.makeText(RegisterActivity.this, "Ya existe este correo", Toast.LENGTH_LONG).show();
+                    Toast toast = new Toast(RegisterActivity.this);
+                    View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+                    toast.setView(toast_layout);
+                    TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+                    textView.setText("Ya existe este correo");
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.show();
                 }else{
-                    Toast.makeText(RegisterActivity.this, "No se ha podido realizar el registro", Toast.LENGTH_LONG).show();
+                    Toast toast = new Toast(RegisterActivity.this);
+                    View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+                    toast.setView(toast_layout);
+                    TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+                    textView.setText("No se ha podido realizar el registro");
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         }) {
@@ -112,7 +126,13 @@ public class RegisterActivity extends AppCompatActivity {
         if (email.equals("") || pass.equals("") || passCheck.equals("") || name.equals("")
                 || lastname.equals("") || address.equals("") || city.equals("")
                 || state.equals("") || postalCode.equals("")) {
-            Toast.makeText(this, "Debes completar todos los campos", Toast.LENGTH_LONG).show();
+            Toast toast = new Toast(RegisterActivity.this);
+            View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+            toast.setView(toast_layout);
+            TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+            textView.setText("Debes completar todos los campos");
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
             error++;
         }
 

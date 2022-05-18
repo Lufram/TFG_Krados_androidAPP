@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -59,7 +61,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if(error.networkResponse.statusCode == 403){
-                    Toast.makeText(LoginActivity.this, "El usuario o la contraseña no son correctos", Toast.LENGTH_LONG).show();
+                    Toast toast = new Toast(LoginActivity.this);
+                    View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+                    toast.setView(toast_layout);
+                    TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+                    textView.setText("El usuario o la contraseña no son correctos");
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         })
@@ -93,7 +101,13 @@ public class LoginActivity extends AppCompatActivity {
         String pass = password.getText().toString();
 
         if (name.equals("") || pass.equals("")) {
-            Toast.makeText(this, "Debes completar todos los campos", Toast.LENGTH_LONG).show();
+            Toast toast = new Toast(this);
+            View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+            toast.setView(toast_layout);
+            TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+            textView.setText("Debes completar todos los campos");
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
             error++;
         }
 

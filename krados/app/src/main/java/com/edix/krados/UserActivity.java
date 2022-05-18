@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -196,7 +197,13 @@ public class UserActivity extends AppCompatActivity {
         if (name.equals("")
                 || lastname.equals("") || address.equals("") || city.equals("")
                 || state.equals("") || postalCode.equals("")) {
-            Toast.makeText(this, "Debes completar todos los campos", Toast.LENGTH_LONG).show();
+            Toast toast = new Toast(getApplicationContext());
+            View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+            toast.setView(toast_layout);
+            TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+            textView.setText("Debes completar todos los campos");
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
             error++;
         }
 
