@@ -106,6 +106,7 @@
         android:layout_gravity="bottom"
         android:text="VOLVER A PEDIR"
         android:textAlignment="center"
+        android:onClick="makeOrderAgain"
         tools:ignore="RtlCompat" />
 
 

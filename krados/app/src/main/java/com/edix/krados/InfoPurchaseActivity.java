@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -14,6 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.InfoPurchaseAdapter;
 import com.edix.krados.adapter.PurchaseAdapter;
@@ -35,6 +38,8 @@ import java.util.Map;
 
 public class InfoPurchaseActivity extends AppCompatActivity {
 
+    private Long purchaseId;
+    private Client c = new Client();
     private User currentUser;
     private Client client;
     private TextView totalPriceText;
@@ -56,6 +61,7 @@ public class InfoPurchaseActivity extends AppCompatActivity {
         currentUser.setJwt(getIntent().getStringExtra("jwt"));
         client = new Client();
         client.setId(getIntent().getLongExtra("clientId", 0));
+        purchaseId = getIntent().getLongExtra("id", 0);
 
         totalPriceText = findViewById(R.id.info_purchase_total_product_price_text);
         listInfoPurchaseContainer = findViewById(R.id.info_purchase_container);
@@ -64,7 +70,80 @@ public class InfoPurchaseActivity extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(this);
         getInfoPurchaseByClientIdVolley(getIntent().getLongExtra("id", 0));
+        getUserDataByUsernameVolley(currentUser.getUserName());
         updateUI();
+    }
+
+    private void getUserDataByUsernameVolley(String username) {
+
+        String url = String.format("http://10.0.2.2:8086/krados/client?userName=%1$s", username);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject jresponse = response.getJSONObject("address");
+                    c.setCartId(Long.parseLong(response.getString("cartId")));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
+        queue.add(request);
+    }
+
+    private void transformCartInPurchaseVolley(Long Id, View view) {
+        String url = "http://10.0.2.2:8086/krados/purchase/buyAgainPurchaseById/"  + Id;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Toast toast = new Toast(getApplicationContext());
+                View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_correct, (ViewGroup) findViewById(R.id.correct_toast));
+                toast.setView(toast_layout);
+                TextView textView = (TextView) toast_layout.findViewById(R.id.toastCorrectMessage);
+                textView.setText("El pedido se ha realizado con exito");
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
+                goBack(view);
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast toast = new Toast(getApplicationContext());
+                View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+                toast.setView(toast_layout);
+                TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+                textView.setText("No se ha podido realizar el pedido");
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
+                System.out.println(error);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+        };
+        queue.add(request);
     }
 
     private void getInfoPurchaseByClientIdVolley(Long purchaseId) {
@@ -116,6 +195,10 @@ public class InfoPurchaseActivity extends AppCompatActivity {
             pAdapter = new InfoPurchaseAdapter(this, productList);
             listInfoPurchaseContainer.setAdapter(pAdapter);
         }
+    }
+
+    public void makeOrderAgain(View view){
+        transformCartInPurchaseVolley(purchaseId, view);
     }
 
     public void goBack(View view) {
