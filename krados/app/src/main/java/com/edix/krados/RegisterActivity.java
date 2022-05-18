@@ -103,6 +103,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void createAccount(View view) {
+        Toast toast = new Toast(RegisterActivity.this);
+        View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_correct, (ViewGroup) findViewById(R.id.correct_toast));
+        toast.setView(toast_layout);
+        TextView textView = (TextView) toast_layout.findViewById(R.id.toastCorrectMessage);
+        textView.setText("El registro se ha realizado con exito");
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.show();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

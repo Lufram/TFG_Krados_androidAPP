@@ -50,18 +50,6 @@
             android:layout_marginBottom="5dp"
             android:background="@color/grey_l" />
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressBar"
-            app:trackColor="@color/grey_l"
-            app:trackThickness="8dp"
-            app:trackCornerRadius="100dp"
-            app:showDelay="0"
-            app:indicatorColor="@color/orange"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:layout_marginBottom="10dp"/>
-
         <ListView
             android:id="@+id/cart_product_container"
             android:layout_width="match_parent"

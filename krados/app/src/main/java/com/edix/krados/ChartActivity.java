@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +21,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.ChartAdapter;
-import com.edix.krados.entity.Address;
 import com.edix.krados.entity.Client;
 import com.edix.krados.entity.Product;
 import com.edix.krados.entity.User;
@@ -49,12 +47,8 @@ public class ChartActivity extends AppCompatActivity {
     private ChartAdapter pAdapter;
     private User currentUser;
     private Client c;
-    private LinearProgressIndicator bProgreso;
     private String pattern = "#.##";
     private DecimalFormat decimalFormat = new DecimalFormat(pattern);
-
-    //TODO
-    //FIX TOTAL AMOUNT WHEN YOU DELETE ALL THE CART PRODUCTS
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +61,7 @@ public class ChartActivity extends AppCompatActivity {
 
         listProductContainer = (ListView) findViewById(R.id.cart_product_container);
         cartTotalProductPrice = findViewById(R.id.chart_total_product_price_text);
-        bProgreso = findViewById(R.id.progressBar);
 
-        bProgreso.setVisibility(View.INVISIBLE);
         queue = Volley.newRequestQueue(this);
         getUserDataByUsernameVolley(currentUser.getUserName());
         updateUI();
@@ -238,6 +230,15 @@ public class ChartActivity extends AppCompatActivity {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                cartTotalProductPrice.setText("0.00€");
+                Toast toast = new Toast(getApplicationContext());
+                View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_correct, (ViewGroup) findViewById(R.id.correct_toast));
+                toast.setView(toast_layout);
+                TextView textView = (TextView) toast_layout.findViewById(R.id.toastCorrectMessage);
+                textView.setText("El pedido se ha realizado con exito");
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
+                deleteAllDataCartVolley(c.getCartId());
             }
 
         }, new Response.ErrorListener() {
@@ -261,6 +262,7 @@ public class ChartActivity extends AppCompatActivity {
     private void updateUI() {
         if (productList.isEmpty()) {
             listProductContainer.setAdapter(null);
+            setTotalPrice();
         } else {
             pAdapter = new ChartAdapter(this, productList);
             listProductContainer.setAdapter(pAdapter);
@@ -353,11 +355,6 @@ public class ChartActivity extends AppCompatActivity {
         cartTotalProductPrice.setText(decimalFormat.format(totalPrice) + "€");
     }
 
-    private void addPurchase() {
-        bProgreso.setVisibility(View.VISIBLE);
-        transformCartInPurchaseVolley(c.getCartId());
-    }
-
     public void goBack(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("username", currentUser.getUserName());
@@ -375,22 +372,7 @@ public class ChartActivity extends AppCompatActivity {
             toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
         } else {
-            addPurchase();
-            try {
-                Thread.sleep(1000);
-                cartTotalProductPrice.setText("0.00€");
-                Toast toast = new Toast(getApplicationContext());
-                View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_correct, (ViewGroup) findViewById(R.id.correct_toast));
-                toast.setView(toast_layout);
-                TextView textView = (TextView) toast_layout.findViewById(R.id.toastCorrectMessage);
-                textView.setText("El pedido se ha realizado con exito");
-                toast.setDuration(Toast.LENGTH_SHORT);
-                toast.show();
-                deleteAllDataCartVolley(c.getCartId());
-                bProgreso.setVisibility(View.INVISIBLE);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            transformCartInPurchaseVolley(c.getCartId());
         }
 
 

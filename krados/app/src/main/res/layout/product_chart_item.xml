@@ -125,8 +125,8 @@
             android:layout_marginTop="36dp"
             android:layout_marginEnd="13dp"
             android:backgroundTint="#0000ffff"
-            android:src="@drawable/delete_icon"
-            android:onClick="deleleProductInCart">
+            android:onClick="deleleProductInCart"
+            android:src="@drawable/delete_icon">
 
         </ImageButton>
 
