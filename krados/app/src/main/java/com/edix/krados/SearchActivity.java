@@ -6,6 +6,7 @@ import androidx.core.view.MenuItemCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -109,6 +110,7 @@ public class SearchActivity extends AppCompatActivity {
                         p.setName(jresponse.getString("name"));
                         p.setInfo(jresponse.getString("info"));
                         p.setuPrice(Double.parseDouble(jresponse.getString("uPrice")));
+                        p.setUrl(jresponse.getString("url"));
                         productList.add(p);
                     }
                     updateUI();
@@ -166,6 +168,7 @@ public class SearchActivity extends AppCompatActivity {
         intent.putExtra("name",p.getName());
         intent.putExtra("price",p.getuPrice());
         intent.putExtra("info",p.getInfo());
+        intent.putExtra("url", p.getUrl());
 
         startActivity(intent);
     }

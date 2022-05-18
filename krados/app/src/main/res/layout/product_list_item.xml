@@ -4,18 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:background="@color/grey"
+    android:background="@color/grey_d"
     android:layout_margin="10dp"
     android:padding="8dp">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <FrameLayout
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+       >
+        <ImageView
+            android:id="@+id/imageViewAdapter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/background_product_image_corner_radius_white"/>
+        <ImageView
+            android:id="@+id/imageViewAdapter2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_product_image_corner_radius_orange"/>
+    </FrameLayout>
+
 
     <RelativeLayout
         android:layout_width="wrap_content"

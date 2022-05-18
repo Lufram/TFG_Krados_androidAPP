@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton boton;
     private Button infoButton;
     private String url;
+    private Product p = new Product();
 
 
     @SuppressLint("WrongViewCast")
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getDataVolley (){
-        String url = "http://10.0.2.2:8086/krados/products/";
+        String url = "http://10.0.2.2:8086/krados/products/offer";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
             @Override
@@ -93,11 +94,11 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     for(int i=0; i<response.length(); i++){
                         JSONObject jresponse = response.getJSONObject(i);
-                        Product p = new Product();
                         p.setId(Long.parseLong(jresponse.getString("id")));
                         p.setName(jresponse.getString("name"));
                         p.setInfo(jresponse.getString("info"));
                         p.setuPrice(Double.parseDouble(jresponse.getString("uPrice")));
+                        p.setUrl(jresponse.getString("url"));
                         productList.add(p);
                     }
                     updateUI();
@@ -164,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("name",p.getName());
         intent.putExtra("price",p.getuPrice());
         intent.putExtra("info",p.getInfo());
+        intent.putExtra("url", p.getUrl());
 
         startActivity(intent);
     }
@@ -172,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, UserActivity.class);
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
+        intent.putExtra("url", p.getUrl());
         startActivity(intent);
     }
 
@@ -179,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChartActivity.class);
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
+        intent.putExtra("url", p.getUrl());
         startActivity(intent);
     }
 
@@ -190,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SearchActivity.class);
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
+        intent.putExtra("url", p.getUrl());
         startActivity(intent);
     }
 
@@ -198,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("categoryId","1");
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
+        intent.putExtra("url", p.getUrl());
         startActivity(intent);
     }
 
@@ -206,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("categoryId","2");
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
+        intent.putExtra("url", p.getUrl());
         startActivity(intent);
     }
 
@@ -214,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("categoryId","3");
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
+        intent.putExtra("url", p.getUrl());
         startActivity(intent);
     }
     public void goCategory4(View view){
@@ -221,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("categoryId","4");
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
+        intent.putExtra("url", p.getUrl());
         startActivity(intent);
     }
     public void goCategory5(View view){
@@ -228,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("categoryId","5");
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
+        intent.putExtra("url", p.getUrl());
         startActivity(intent);
     }
     public void goCategory6(View view){
@@ -235,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("categoryId","6");
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
+        intent.putExtra("url", p.getUrl());
         startActivity(intent);
     }
 

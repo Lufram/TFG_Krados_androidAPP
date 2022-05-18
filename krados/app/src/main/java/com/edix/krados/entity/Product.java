@@ -8,14 +8,19 @@ public class Product {
     private String info;
     private double uPrice;
     private int amount;
+    private String url;
+    private boolean inOffer;
 
     private int category;
 
-    public Product(Long id, String name, String info, double uPrice, int category) {
+    public Product(Long id, String name, String info, double uPrice, int amount, String url, boolean inOffer, int category) {
         this.id = id;
         this.name = name;
         this.info = info;
         this.uPrice = uPrice;
+        this.amount = amount;
+        this.url = url;
+        this.inOffer = inOffer;
         this.category = category;
     }
 
@@ -69,6 +74,22 @@ public class Product {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public boolean isInOffer() {
+        return inOffer;
+    }
+
+    public void setInOffer(boolean inOffer) {
+        this.inOffer = inOffer;
     }
 
     @Override

@@ -1,12 +1,15 @@
 package com.edix.krados.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.edix.krados.R;
 import com.edix.krados.entity.Product;
 
@@ -33,6 +36,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         // Referencias UI.
         TextView name = (TextView) convertView.findViewById(R.id.product_name_text);
         TextView price = (TextView) convertView.findViewById(R.id.product_price_text);
+        ImageView image = (ImageView) convertView.findViewById(R.id.imageViewAdapter);
 
         // Lead actual.
         Product product = getItem(position);
@@ -40,6 +44,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         // Setup.
         name.setText(product.getName());
         price.setText(String.valueOf(product.getuPrice())+ " €");
+        Glide.with(convertView).load(Uri.parse(product.getUrl())).into(image);
 
         return convertView;
     }

@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.edix.krados.adapter.ChartAdapter;
 import com.edix.krados.entity.Client;
 import com.edix.krados.entity.Product;
@@ -40,10 +43,12 @@ public class ProductActivity extends AppCompatActivity {
     private TextView name;
     private TextView price;
     private TextView info;
+    private ImageView image;
     private EditText editTextNumOfProd;
     private RequestQueue queue;
     private User currentUser;
     private Client c;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +63,10 @@ public class ProductActivity extends AppCompatActivity {
         currentProduct.setName(getIntent().getStringExtra("name"));
         currentProduct.setuPrice(getIntent().getDoubleExtra("price", 0));
         currentProduct.setInfo(getIntent().getStringExtra("info"));
+        currentProduct.setUrl(getIntent().getStringExtra("url"));
 
+
+        image = (ImageView) findViewById(R.id.imageViewProduct);
         name = (TextView) findViewById(R.id.current_product_name_text);
         price = (TextView) findViewById(R.id.current_product_price_text);
         info = (TextView) findViewById(R.id.current_product_info_text);
@@ -136,6 +144,7 @@ public class ProductActivity extends AppCompatActivity {
         name.setText(currentProduct.getName());
         price.setText(String.valueOf(currentProduct.getuPrice()) + " €");
         info.setText(currentProduct.getInfo());
+        Glide.with(getApplicationContext()).load(Uri.parse(currentProduct.getUrl())).into(image);
     }
 
     public void addProductCart(View view) {
@@ -188,4 +197,5 @@ public class ProductActivity extends AppCompatActivity {
         intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
     }
+
 }

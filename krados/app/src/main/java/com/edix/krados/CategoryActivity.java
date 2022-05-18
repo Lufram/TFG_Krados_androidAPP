@@ -57,6 +57,7 @@ public class CategoryActivity extends AppCompatActivity {
         currentUser.setJwt(getIntent().getStringExtra("jwt"));
         categoryId = getIntent().getStringExtra("categoryId");
 
+
         listProductContainerCategory = findViewById(R.id.product_container_category);
         bottomAppBar = findViewById(R.id.bottomAppBar);
         FloatingActionButton boton = findViewById(R.id.fab);
@@ -108,6 +109,7 @@ public class CategoryActivity extends AppCompatActivity {
                         p.setName(jresponse.getString("name"));
                         p.setInfo(jresponse.getString("info"));
                         p.setuPrice(Double.parseDouble(jresponse.getString("uPrice")));
+                        p.setUrl(jresponse.getString("url"));
                         productList.add(p);
                     }
                     updateUI();
@@ -150,6 +152,7 @@ public class CategoryActivity extends AppCompatActivity {
                         p.setName(jresponse.getString("name"));
                         p.setInfo(jresponse.getString("info"));
                         p.setuPrice(Double.parseDouble(jresponse.getString("uPrice")));
+                        p.setUrl(jresponse.getString("url"));
                         productList.add(p);
                     }
                     updateUI();
@@ -208,6 +211,7 @@ public class CategoryActivity extends AppCompatActivity {
         intent.putExtra("name",p.getName());
         intent.putExtra("price",p.getuPrice());
         intent.putExtra("info",p.getInfo());
+        intent.putExtra("url", p.getUrl());
 
         startActivity(intent);
     }
