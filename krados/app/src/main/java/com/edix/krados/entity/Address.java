@@ -5,7 +5,6 @@ public class Address {
     private String roadName;
     private String cityName;
     private String stateName;
-    private int roadNumber;
     private String postalCode;
 
     public Address() {
@@ -41,14 +40,6 @@ public class Address {
 
     public void setStateName(String stateName) {
         this.stateName = stateName;
-    }
-
-    public int getRoadNumber() {
-        return roadNumber;
-    }
-
-    public void setRoadNumber(int roadNumber) {
-        this.roadNumber = roadNumber;
     }
 
     public String getPostalCode() {

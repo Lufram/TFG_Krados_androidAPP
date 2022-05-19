@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -35,8 +37,10 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputEditText cityInput;
     private TextInputEditText stateInput;
     private TextInputEditText postalCodeInput;
+    private TextInputLayout emailLayout;
     private TextInputLayout passwordLayout;
     private TextInputLayout passwordCheckLayout;
+    private TextInputLayout postalCodeLayout;
     private RequestQueue queue;
     private Register newUserRegister;
     private HashMap<String, String> hashMap;
@@ -55,8 +59,10 @@ public class RegisterActivity extends AppCompatActivity {
         cityInput = findViewById(R.id.register_input_text_city);
         stateInput = findViewById(R.id.register_input_text_state);
         postalCodeInput = findViewById(R.id.register_input_text_postal_code);
+        emailLayout = findViewById(R.id.register_input_layout_email);
         passwordLayout = findViewById(R.id.register_input_layout_password);
         passwordCheckLayout = findViewById(R.id.register_input_layout_password_check);
+        postalCodeLayout = findViewById(R.id.register_input_layout_postal_code);
 
         queue = Volley.newRequestQueue(this);
     }
@@ -114,11 +120,27 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private boolean validateEmail(String email) {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
+    }
+
+    private boolean validateIsNumber(String number){
+        try{
+            Integer.parseInt(number);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
     public void validateFields(View view) {
         int error = 0;
 
+        emailLayout.setErrorEnabled(false);
         passwordLayout.setErrorEnabled(false);
         passwordCheckLayout.setErrorEnabled(false);
+        postalCodeLayout.setErrorEnabled(false);
 
         String email = emailInput.getText().toString();
         String pass = passwordInput.getText().toString();
@@ -142,7 +164,12 @@ public class RegisterActivity extends AppCompatActivity {
             toast.show();
             error++;
         }
-
+        if(!validateEmail(email)){
+            emailLayout.setErrorEnabled(true);
+            emailLayout.setError("Formato de email inválido");
+            emailLayout.requestFocus();
+            error++;
+        }
         if(pass.length() < 6){
             passwordLayout.setErrorEnabled(true);
             passwordLayout.setError("Debe que tener 6 caracteres como mínimo");
@@ -158,6 +185,12 @@ public class RegisterActivity extends AppCompatActivity {
             passwordCheckLayout.setErrorEnabled(true);
             passwordCheckLayout.setError("Las contraseñas deben coincidir");
             passwordCheckLayout.requestFocus();
+            error++;
+        }
+        if(!validateIsNumber(postalCode)){
+            postalCodeLayout.setErrorEnabled(true);
+            postalCodeLayout.setError("EL codigo postal tiene que se un numero");
+            postalCodeLayout.requestFocus();
             error++;
         }
 

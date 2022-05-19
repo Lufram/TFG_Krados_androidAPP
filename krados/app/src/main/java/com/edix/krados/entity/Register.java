@@ -8,7 +8,6 @@ public class Register {
     private String lastname;
 
     private String roadName;
-    private int roadNum;
     private String city;
     private String state;
     private String postalCode;
@@ -54,14 +53,6 @@ public class Register {
 
     public void setRoadName(String roadName) {
         this.roadName = roadName;
-    }
-
-    public int getRoadNum() {
-        return roadNum;
-    }
-
-    public void setRoadNum(int roadNum) {
-        this.roadNum = roadNum;
     }
 
     public String getCity() {

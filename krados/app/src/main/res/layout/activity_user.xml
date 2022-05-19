@@ -276,7 +276,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/register_input_text_postal_code"
+                        android:id="@+id/user_input_layout_postal_code"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="32dp"
@@ -317,7 +317,6 @@
     </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        app:hideOnScroll="true"
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

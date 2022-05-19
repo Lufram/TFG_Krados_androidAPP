@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -42,6 +44,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 
 public class UserActivity extends AppCompatActivity {
@@ -60,10 +63,12 @@ public class UserActivity extends AppCompatActivity {
     private TextInputEditText cityInput;
     private TextInputEditText stateInput;
     private TextInputEditText postalCodeInput;
+    private TextInputLayout postalCodeLayout;
     private Boolean isPressed;
     private User currentUser;
     private Client c;
     private RequestQueue queue;
+    private HashMap<String, String> hashMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +94,8 @@ public class UserActivity extends AppCompatActivity {
         cityInput = findViewById(R.id.profile_input_text_city);
         stateInput = findViewById(R.id.profile_input_text_state);
         postalCodeInput = findViewById(R.id.profile_input_text_postal_code);
+        postalCodeLayout = findViewById(R.id.user_input_layout_postal_code);
+
         findViewById(R.id.bottomNavigationView).setBackground(null);
         boton.setColorFilter(Color.WHITE);
         queue = Volley.newRequestQueue(this);
@@ -110,7 +117,6 @@ public class UserActivity extends AppCompatActivity {
                     address.setRoadName(jresponse.getString("roadName"));
                     address.setCityName(jresponse.getString("cityName"));
                     address.setStateName(jresponse.getString("extraInfo"));
-                    address.setRoadNumber(Integer.parseInt(jresponse.getString("number")));
                     address.setPostalCode(jresponse.getString("postalCode"));
 
                     c.setId(Long.parseLong(response.getString("id")));
@@ -142,6 +148,49 @@ public class UserActivity extends AppCompatActivity {
         queue.add(request);
     }
 
+    private void changeUserVolley (HashMap hasMap) {
+        String url = "http://10.0.2.2:8086/krados/client/update";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(hasMap), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Toast toast = new Toast(UserActivity.this);
+                View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_correct, (ViewGroup) findViewById(R.id.correct_toast));
+                toast.setView(toast_layout);
+                TextView textView = (TextView) toast_layout.findViewById(R.id.toastCorrectMessage);
+                textView.setText("Usuario modificado con exito");
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
+                setAllSave();
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                    Toast toast = new Toast(UserActivity.this);
+                    View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_error, (ViewGroup) findViewById(R.id.error_toast));
+                    toast.setView(toast_layout);
+                    TextView textView = (TextView) toast_layout.findViewById(R.id.toastErrorMessage);
+                    textView.setText("No se ha podido modificar el usuario");
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.show();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", currentUser.getJwt());
+
+                return params;
+            }
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                int mStatusCode = response.statusCode;
+                return super.parseNetworkResponse(response);
+            }
+        };
+        queue.add(request);
+    }
 
     public void modifyProfileData(View view) {
         if (isPressed == false) {
@@ -174,6 +223,7 @@ public class UserActivity extends AppCompatActivity {
         closeSesionButton.setEnabled(true);
         bottomAppBar.setVisibility(View.VISIBLE);
         boton.setVisibility(View.VISIBLE);
+        findViewById(R.id.bottomNavigationView).setBackground(null);
         modifyButton.setText("MODIFICAR");
         nameInput.setEnabled(false);
         lastNameInput.setEnabled(false);
@@ -184,8 +234,20 @@ public class UserActivity extends AppCompatActivity {
         isPressed = false;
     }
 
+    private boolean validateIsNumber(String number){
+        try{
+            Integer.parseInt(number);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+
     public void validateFields() {
         int error = 0;
+
+        postalCodeLayout.setErrorEnabled(false);
 
         String name = nameInput.getText().toString();
         String lastname = lastNameInput.getText().toString();
@@ -206,9 +268,23 @@ public class UserActivity extends AppCompatActivity {
             toast.show();
             error++;
         }
+        if(!validateIsNumber(postalCode)){
+            postalCodeLayout.setErrorEnabled(true);
+            postalCodeLayout.setError("EL codigo postal tiene que se un numero");
+            postalCodeLayout.requestFocus();
+            error++;
+        }
 
         if (error == 0) {
-            setAllSave();
+            hashMap = new HashMap<>();
+            hashMap.put("id", String.valueOf(c.getId()));
+            hashMap.put("name", name );
+            hashMap.put("surname", lastname);
+            hashMap.put("roadName", address);
+            hashMap.put("cityName", city);
+            hashMap.put("extraInfo", state);
+            hashMap.put("postalCode", postalCode);
+            changeUserVolley(hashMap);
         }
     }
 
@@ -216,7 +292,7 @@ public class UserActivity extends AppCompatActivity {
         emailInput.setText(currentUser.getUserName());
         nameInput.setText(c.getName());
         lastNameInput.setText(c.getSurname());
-        addressInput.setText(c.getAddress().getRoadName() + " " + String.valueOf(c.getAddress().getRoadNumber()) );
+        addressInput.setText(c.getAddress().getRoadName());
         cityInput.setText(c.getAddress().getCityName());
         stateInput.setText(c.getAddress().getStateName());
         postalCodeInput.setText(String.valueOf(c.getAddress().getPostalCode()));

@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton boton;
     private Button infoButton;
     private String url;
-    private Product p = new Product();
+    private Product p;
 
 
     @SuppressLint("WrongViewCast")
@@ -92,7 +92,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 try{
+                    productList.clear();
                     for(int i=0; i<response.length(); i++){
+                        p = new Product();
                         JSONObject jresponse = response.getJSONObject(i);
                         p.setId(Long.parseLong(jresponse.getString("id")));
                         p.setName(jresponse.getString("name"));

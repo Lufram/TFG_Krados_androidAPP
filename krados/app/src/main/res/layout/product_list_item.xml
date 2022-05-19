@@ -56,7 +56,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="15dp"
-            android:layout_marginBottom="10dp"
             android:text="0.00 €"
             android:textColor="@color/orange"
             android:textSize="24sp" />
