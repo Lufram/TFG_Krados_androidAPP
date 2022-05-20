@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChartActivity"
     android:background="@color/grey"
     android:paddingLeft="25dp"
+    android:paddingTop="5dp"
     android:paddingRight="25dp"
     android:paddingBottom="25dp"
-    android:paddingTop="5dp">
+    tools:context=".CartActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/chart_back_button"
                 android:layout_width="30dp"
@@ -28,8 +29,8 @@
                 android:backgroundTint="@color/grey_d"
                 android:drawableLeft="@drawable/back_icon"
                 android:insetTop="0dp"
-                android:onClick="goBack"
                 android:insetBottom="0dp"
+                android:onClick="goBack"
                 android:padding="6dp"
                 app:cornerRadius="1000dp"
                 app:srcCompat="@drawable/back_icon" />
@@ -46,20 +47,20 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/grey_l"
-            android:layout_marginBottom="5dp"/>
-
+            android:layout_marginBottom="5dp"
+            android:background="@color/grey_l" />
 
         <ListView
-            android:id="@+id/product_container"
+            android:id="@+id/cart_product_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="140dp"></ListView>
+
     </LinearLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:layout_marginBottom="80dp"
         android:orientation="horizontal">
@@ -67,9 +68,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_toStartOf="@+id/chart_total_product_price_text"
             android:text="Total"
-            android:layout_marginStart="210dp"
             android:textColor="@color/orange"
             android:textSize="18dp" />
 
@@ -77,31 +80,35 @@
             android:id="@+id/chart_total_product_price_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="23dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
             android:text="0.00€"
             android:textColor="@color/grey_l"
             android:textSize="28dp" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </RelativeLayout>
 
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/grey_l"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="70dp"/>
+        android:layout_marginBottom="70dp"
+        android:background="@color/grey_l" />
 
     <Button
-        android:id="@+id/current_product_button_add_chart"
+        android:id="@+id/cart_product_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:paddingLeft="25dp"
         android:layout_gravity="bottom"
+        android:layout_marginTop="15dp"
+        android:onClick="makeAnOrder"
+        android:paddingLeft="25dp"
         android:text="Realizar pedido"
         android:textAlignment="center"
         tools:ignore="RtlCompat" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

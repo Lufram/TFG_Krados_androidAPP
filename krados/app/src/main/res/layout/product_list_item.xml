@@ -4,21 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:background="@drawable/w_panel"
-    android:layout_margin="10dp">
+    android:background="@color/grey_d"
+    android:layout_margin="10dp"
+    android:padding="8dp">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <FrameLayout
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+       >
+        <ImageView
+            android:id="@+id/imageViewAdapter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/background_product_image_corner_radius_white"/>
+        <ImageView
+            android:id="@+id/imageViewAdapter2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_product_image_corner_radius_orange"/>
+    </FrameLayout>
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:orientation="vertical"
         android:layout_marginLeft="30dp">
 
@@ -26,25 +39,27 @@
             android:id="@+id/product_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="15dp"
             android:text="Nombre producto"
-            android:textColor="@color/grey"
+            android:textAlignment="textEnd"
+            android:textColor="@color/grey_l"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/product_price_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="15dp"
             android:text="0.00 €"
             android:textColor="@color/orange"
             android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Ver" />
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
 
     <Button
@@ -53,7 +68,6 @@
         android:backgroundTint="#00FFFFFF"
         android:drawableTint="#00FFFFFF"
         android:elegantTextHeight="true"
-        android:focusableInTouchMode="true"
         android:foregroundTint="#00FFFFFF"
         app:rippleColor="#00FFFFFF"
         app:strokeColor="#00FFFFFF"
@@ -61,4 +75,5 @@
         android:onClick="viewProduct">
 
     </Button>
+
 </FrameLayout>
