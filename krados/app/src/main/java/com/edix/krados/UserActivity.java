@@ -314,8 +314,12 @@ public class UserActivity extends AppCompatActivity {
 
     public void closeSesion(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();
+        System.exit(0);
     }
 
     public void goCart(View view) {

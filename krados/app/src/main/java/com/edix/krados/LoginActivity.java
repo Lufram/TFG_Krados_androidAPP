@@ -83,19 +83,6 @@ public class LoginActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-    public void login(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("username",user.getText().toString().trim().toLowerCase());
-        intent.putExtra("jwt", jwt);
-        startActivity(intent);
-        finish();
-    }
-
-    public void createAccount(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
-
     public void validateFields(View view) {
         int error = 0;
 
@@ -116,6 +103,19 @@ public class LoginActivity extends AppCompatActivity {
         if (error == 0) {
             loginUserVolley(name, pass, view);
         }
+    }
+
+    public void login(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("username",user.getText().toString().trim().toLowerCase());
+        intent.putExtra("jwt", jwt);
+        startActivity(intent);
+        finish();
+    }
+
+    public void createAccount(View view) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 
 }
