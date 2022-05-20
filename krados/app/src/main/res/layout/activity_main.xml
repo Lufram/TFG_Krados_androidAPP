@@ -20,7 +20,16 @@
             android:background="@color/grey"
             android:backgroundTint="@color/grey"
             app:menu="@menu/toolbar"
-            app:title="Krados" />
+            app:title="Krados" >
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_logo_krados"
+                android:layout_gravity="center"
+                >
+
+            </ImageView>
+        </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 

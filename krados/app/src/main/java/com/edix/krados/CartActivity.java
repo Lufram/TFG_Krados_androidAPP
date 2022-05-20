@@ -354,13 +354,6 @@ public class CartActivity extends AppCompatActivity {
         cartTotalProductPrice.setText(decimalFormat.format(totalPrice) + "€");
     }
 
-    public void goBack(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("username", currentUser.getUserName());
-        intent.putExtra("jwt", currentUser.getJwt());
-        startActivity(intent);
-    }
-
     public void makeAnOrder(View view) {
         if (productList.isEmpty()) {
             Toast toast = new Toast(getApplicationContext());
@@ -374,6 +367,12 @@ public class CartActivity extends AppCompatActivity {
             transformCartInPurchaseVolley(c.getCartId());
         }
 
+    }
 
+    public void goBack(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("username", currentUser.getUserName());
+        intent.putExtra("jwt", currentUser.getJwt());
+        startActivity(intent);
     }
 }

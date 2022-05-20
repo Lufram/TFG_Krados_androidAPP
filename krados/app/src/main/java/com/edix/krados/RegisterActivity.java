@@ -67,7 +67,6 @@ public class RegisterActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
     }
 
-
     private void registerNewUserVolley ( HashMap hasMap, View view) {
         String url = "http://10.0.2.2:8086/krados/register";
 

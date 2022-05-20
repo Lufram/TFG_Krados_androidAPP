@@ -57,12 +57,10 @@ public class CategoryActivity extends AppCompatActivity {
         currentUser.setJwt(getIntent().getStringExtra("jwt"));
         categoryId = getIntent().getStringExtra("categoryId");
 
-
         listProductContainerCategory = findViewById(R.id.product_container_category);
         bottomAppBar = findViewById(R.id.bottomAppBar);
         FloatingActionButton boton = findViewById(R.id.fab);
         toolbar = (Toolbar) findViewById(R.id.topAppBarSearch);
-
 
         findViewById(R.id.bottomNavigationView).setBackground(null);
         boton.setColorFilter(Color.WHITE);
@@ -135,7 +133,6 @@ public class CategoryActivity extends AppCompatActivity {
         };
         queue.add(request);
     }
-
 
     private void getProductByCategoryIdAndNameVolley (String id, String name ) {
         String url = String.format("http://10.0.2.2:8086/krados/products/findByCategoryAndName?categoryId=%1$s&name=%2$s", id, name);

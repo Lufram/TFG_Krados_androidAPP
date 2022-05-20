@@ -29,4 +29,27 @@
         app:layout_constraintTop_toTopOf="@+id/view"
         app:srcCompat="@drawable/ic_logo_krados" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressBar"
+            app:trackColor="@color/grey_l"
+            app:trackThickness="4dp"
+            app:showDelay="0"
+            android:layout_centerHorizontal="true"
+            app:indicatorColor="@color/orange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </RelativeLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
