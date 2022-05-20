@@ -42,7 +42,7 @@ _Software necesario para obtener una copia del proyecto el proyecto_
 
 ### Instalación 🔧
 
-_Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
+_Pasos a seguir._
 
 1. _Para obtener una copia del proyecto se deberá descargar el proyecto y crear un dispositivo virtúal(durante el desarrollo de este proyecto se ha utilizado el dispositivo **Pixel 4 XL**._
 
