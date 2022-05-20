@@ -68,7 +68,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
-            app:menu="@menu/botton_navbar" />
+            app:menu="@menu/botton_navbar"
+            app:itemIconTint="#B6B4B4"/>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -81,7 +82,7 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_baseline_shopping_cart_24"
         android:tint="@color/white"
-        android:onClick="goChart"
+        android:onClick="goCart"
         app:layout_anchor="@id/bottomAppBar" />
 
 

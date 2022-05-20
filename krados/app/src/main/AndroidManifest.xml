@@ -25,7 +25,7 @@
             android:name=".CategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".ChartActivity"
+            android:name=".CartActivity"
             android:exported="true" />
         <activity
             android:name=".UserActivity"

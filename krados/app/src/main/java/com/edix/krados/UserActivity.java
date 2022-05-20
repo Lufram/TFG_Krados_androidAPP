@@ -6,7 +6,6 @@ import android.content.Intent;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,30 +20,21 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.edix.krados.entity.Address;
 import com.edix.krados.entity.Client;
-import com.edix.krados.entity.Product;
 import com.edix.krados.entity.User;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 
 public class UserActivity extends AppCompatActivity {
@@ -328,8 +318,8 @@ public class UserActivity extends AppCompatActivity {
         finish();
     }
 
-    public void goChart(View view) {
-        Intent intent = new Intent(this, ChartActivity.class);
+    public void goCart(View view) {
+        Intent intent = new Intent(this, CartActivity.class);
         intent.putExtra("username", currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);

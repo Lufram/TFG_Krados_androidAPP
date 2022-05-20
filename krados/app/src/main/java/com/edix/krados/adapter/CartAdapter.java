@@ -14,8 +14,8 @@ import com.edix.krados.entity.Product;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class ChartAdapter extends ArrayAdapter<Product> {
-    public ChartAdapter(Context context, List<Product> objects) {
+public class CartAdapter extends ArrayAdapter<Product> {
+    public CartAdapter(Context context, List<Product> objects) {
         super(context, 0, objects);
     }
     private String pattern = "#.##";

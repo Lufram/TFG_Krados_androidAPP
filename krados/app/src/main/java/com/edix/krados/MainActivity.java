@@ -1,27 +1,18 @@
 package com.edix.krados;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,12 +24,8 @@ import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.ProductAdapter;
 import com.edix.krados.entity.Product;
 import com.edix.krados.entity.User;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+
     private ListView listProductContainer;
     private RequestQueue queue;
     private List<Product> productList = new ArrayList<>();
@@ -79,11 +67,14 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.topContainerAppBar).bringToFront();
         findViewById(R.id.bottomNavigationView).setBackground(null);
         boton.setColorFilter(Color.WHITE);
+        findViewById(R.id.page_1);
 
         queue = Volley.newRequestQueue(this);
         getDataVolley();
         updateUI();
     }
+
+
 
     private void getDataVolley (){
         String url = "http://10.0.2.2:8086/krados/products/offer";
@@ -180,8 +171,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goChart(View view){
-        Intent intent = new Intent(this, ChartActivity.class);
+    public void goCart(View view){
+        Intent intent = new Intent(this, CartActivity.class);
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
         intent.putExtra("url", p.getUrl());

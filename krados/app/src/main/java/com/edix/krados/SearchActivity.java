@@ -6,7 +6,6 @@ import androidx.core.view.MenuItemCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,9 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.edix.krados.adapter.ProductAdapter;
 import com.edix.krados.entity.Product;
 import com.edix.krados.entity.User;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -187,8 +184,8 @@ public class SearchActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goChart(View view){
-        Intent intent = new Intent(this, ChartActivity.class);
+    public void goCart(View view){
+        Intent intent = new Intent(this, CartActivity.class);
         intent.putExtra("jwt", currentUser.getJwt());
         intent.putExtra("username",currentUser.getUserName());
         startActivity(intent);

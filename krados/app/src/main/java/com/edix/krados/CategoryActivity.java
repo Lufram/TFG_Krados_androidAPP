@@ -230,8 +230,8 @@ public class CategoryActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goChart(View view){
-        Intent intent = new Intent(this, ChartActivity.class);
+    public void goCart(View view){
+        Intent intent = new Intent(this, CartActivity.class);
         intent.putExtra("username",currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);

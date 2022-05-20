@@ -20,12 +20,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.edix.krados.adapter.ChartAdapter;
+import com.edix.krados.adapter.CartAdapter;
 import com.edix.krados.entity.Client;
 import com.edix.krados.entity.Product;
 import com.edix.krados.entity.User;
 import com.edix.krados.utilities.InputFilterMinMax;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,13 +37,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ChartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity {
 
     private ListView listProductContainer;
     private TextView cartTotalProductPrice;
     private List<Product> productList = new ArrayList<>();
     private RequestQueue queue;
-    private ChartAdapter pAdapter;
+    private CartAdapter pAdapter;
     private User currentUser;
     private Client c;
     private String pattern = "#.##";
@@ -264,7 +263,7 @@ public class ChartActivity extends AppCompatActivity {
             listProductContainer.setAdapter(null);
             setTotalPrice();
         } else {
-            pAdapter = new ChartAdapter(this, productList);
+            pAdapter = new CartAdapter(this, productList);
             listProductContainer.setAdapter(pAdapter);
             setTotalPrice();
         }

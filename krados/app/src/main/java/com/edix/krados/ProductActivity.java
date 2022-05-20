@@ -1,7 +1,6 @@
 package com.edix.krados;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -22,7 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.edix.krados.adapter.ChartAdapter;
+import com.edix.krados.adapter.CartAdapter;
 import com.edix.krados.entity.Client;
 import com.edix.krados.entity.Product;
 import com.edix.krados.entity.User;
@@ -31,15 +30,13 @@ import com.edix.krados.utilities.InputFilterMinMax;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ProductActivity extends AppCompatActivity {
 
     private Product currentProduct;
-    private ChartAdapter pAdapter;
+    private CartAdapter pAdapter;
     private TextView name;
     private TextView price;
     private TextView info;
@@ -85,7 +82,7 @@ public class ProductActivity extends AppCompatActivity {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                goChart(view);
+                goCart(view);
             }
 
         }, new Response.ErrorListener() {
@@ -184,8 +181,8 @@ public class ProductActivity extends AppCompatActivity {
         }
     }
 
-    public void goChart(View view) {
-        Intent intent = new Intent(this, ChartActivity.class);
+    public void goCart(View view) {
+        Intent intent = new Intent(this, CartActivity.class);
         intent.putExtra("username", currentUser.getUserName());
         intent.putExtra("jwt", currentUser.getJwt());
         startActivity(intent);
