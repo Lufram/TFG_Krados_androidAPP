@@ -3,7 +3,8 @@
 <img src="https://res.cloudinary.com/dpdob4mxw/image/upload/v1653066493/krados/krados_icon_sq_yukpin.svg" width="150px">
 
 Krados androidAPP se ha desarrollado con el fin de mostrar un ejemplo de un ecomerce, buscando facilitarle a las pequeñas empresas la digitalización.  
-Esta aplicación de android está diseñada para ejecutarse junto a el servicio REST del repositorio:  https://github.com/Lufram/TFG_Krados_webService.git.
+Esta aplicación de android está diseñada para ejecutarse junto a el servicio REST del repositorio:  
+https://github.com/Lufram/TFG_Krados_webService.git.
 
 También encontrarás el ejecutable para android en el repositorio
 general del proyecto: https://github.com/jabaron56/TFG_Krados.git
