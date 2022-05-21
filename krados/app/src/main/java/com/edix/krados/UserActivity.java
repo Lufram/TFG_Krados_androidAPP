@@ -194,8 +194,8 @@ public class UserActivity extends AppCompatActivity {
         myPurchaseButton.setEnabled(false);
         changePasswordButton.setEnabled(false);
         closeSesionButton.setEnabled(false);
-        bottomAppBar.setVisibility(View.INVISIBLE);
-        boton.setVisibility(View.INVISIBLE);
+        bottomAppBar.setVisibility(View.GONE);
+        boton.setVisibility(View.GONE);
         modifyButton.setText("GUARDAR");
         nameInput.setEnabled(true);
         nameInput.requestFocus();
