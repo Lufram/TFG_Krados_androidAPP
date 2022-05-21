@@ -9,6 +9,9 @@ servicio REST del repositorio: https://github.com/Lufram/TFG_Krados_webService.g
 También encontrarás el ejecutable para android en el repositorio
 general del proyecto: https://github.com/jabaron56/TFG_Krados.git
 
+Video de demostración de la app en funcionamiento:  
+https://www.youtube.com/watch?v=6_11FosleYU
+
 ***
 
 ## Tabla de contenido 🔖
